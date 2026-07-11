@@ -191,6 +191,51 @@
       '<div class="q-town" data-town="' + q.id + '"' + (open ? '' : ' hidden') + '></div>';
   }
 
+  /* ---------------- fit the question to its card ----------------
+
+     A question is the only thing on a card, so it should behave like a headline
+     and fill the space it's been given. A fixed font-size can't: "Are you a
+     picky eater?" and "Someone from the year 3000 watches one day of your life,
+     what horrifies them?" are the same card and four times the words, so any
+     single size is either too small for one or overflowing for the other.
+
+     So: grow each question to the biggest size that still fits its box. Short
+     questions come out huge, long ones come out merely large, and no card is
+     ever mostly empty. Re-run on resize, since the box changes width. */
+
+  function fitQuestion(el) {
+    if (!el) return;
+
+    /* One column (phones): the cards are stacked, so there is no reason to force
+       them all to the same height — and forcing it leaves "Do you lock your
+       door?" marooned in a half-empty card. Down here the box hugs the question
+       instead, and CSS picks a big fluid size. Hand the size back to CSS. */
+    if (window.innerWidth <= 900) { el.style.fontSize = ''; return; }
+
+    var max = window.innerWidth >= 1100 ? 54 : 46;
+    var min = 17;
+
+    // Binary search beats stepping: ~6 measurements instead of ~35.
+    var lo = min, hi = max, best = min;
+    while (lo <= hi) {
+      var mid = (lo + hi) >> 1;
+      el.style.fontSize = mid + 'px';
+      if (el.scrollHeight <= el.clientHeight) { best = mid; lo = mid + 1; }
+      else { hi = mid - 1; }
+    }
+    el.style.fontSize = best + 'px';
+  }
+
+  function fitAll() {
+    [].forEach.call(document.querySelectorAll('.q-text'), fitQuestion);
+  }
+
+  var refit;
+  window.addEventListener('resize', function () {
+    clearTimeout(refit);
+    refit = setTimeout(fitAll, 120);
+  });
+
   function renderTrio() {
     var live = pool();
     if (!live.length) {
@@ -206,6 +251,7 @@
       return '<article class="q" data-id="' + q.id + '">' + cardHtml(q) + '</article>';
     }).join('');
 
+    fitAll();
     trio.forEach(function (q) { track('sa-served', q.id, q.d); });
 
     $('deal-note').textContent = dials.burn
@@ -455,6 +501,7 @@
     $('single').hidden = false;
     document.querySelector('main.wrap').hidden = true;
     document.querySelector('.hero').hidden = true;
+    fitQuestion($('single-card').querySelector('.q-text'));
     track('sa-linked', q.id, q.d);
     loadTown(q.id, $('single-card').querySelector('[data-town]'));
   }
@@ -528,6 +575,7 @@
     dep.setAttribute('data-d', q.d);
     $('wc-text').textContent = q.q;
     $('wheel-card').hidden = false;
+    fitQuestion($('wc-text'));
     track('sa-served', q.id, q.d);
     startTimer();
   }
