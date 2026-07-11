@@ -39,8 +39,23 @@ create table if not exists btb_sa_answers (
 );
 alter table btb_sa_answers enable row level security;   -- no policies: RPC-only
 
-create index if not exists btb_sa_answers_qid_idx
+-- ---------- upgrading from the first version of this file ----------
+-- The whole script is safe to re-run. These three lines are what make that
+-- true if you already ran the original version, which had no hearts:
+--   * "create table if not exists" above will NOT add a column to a table that
+--     already exists, so hearts has to be added explicitly;
+--   * the index gains a hearts column, so it has to be rebuilt;
+--   * btb_sa_list now returns hearts too, and Postgres refuses to "create or
+--     replace" a function whose return type changed — it has to be dropped.
+-- On a fresh database all three are harmless no-ops.
+
+alter table btb_sa_answers add column if not exists hearts int not null default 0;
+
+drop index if exists btb_sa_answers_qid_idx;
+create index btb_sa_answers_qid_idx
   on btb_sa_answers (qid, status, hearts desc, created_at desc);
+
+drop function if exists btb_sa_list(text);
 
 -- One report per browser per answer. The primary key does the enforcing.
 create table if not exists btb_sa_flags (
