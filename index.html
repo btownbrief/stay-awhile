@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B0A0C">
+<title>Stay Awhile — 311 questions worth actually asking</title>
+<meta name="description" content="A conversation game for Burlington. Spin the wheel, land on someone, and ask them something that isn't small talk. 311 questions, filterable by depth and topic — plus what the rest of the town said.">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BTown Games">
+<meta property="og:title" content="Stay Awhile">
+<meta property="og:description" content="Spin the wheel, land on someone, ask them something real. A conversation game for Burlington.">
+<meta property="og:url" content="https://play.btownbrief.com/stay-awhile/">
+<meta property="og:image" content="https://play.btownbrief.com/stay-awhile/assets/img/hero.jpg">
+
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============================================================
+     THE HERO — the invitation. Photograph, graded to the house
+     recipe so white type sits on it without a scrim.
+============================================================ -->
+<header class="hero">
+  <div class="hero-img" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="hero-copy">
+    <p class="eyebrow">BTown Games · a Burlington Brief thing</p>
+    <h1>Stay<br><em>awhile</em></h1>
+    <p class="lede">
+      Nobody ever remembers the small talk. Spin the wheel, land on
+      someone, and ask them something that actually matters.
+    </p>
+    <p class="count"><span id="q-total">311</span> questions · <span id="q-live">311</span> in play</p>
+    <a class="pill" href="#table">Sit down →</a>
+  </div>
+
+  <span class="credit">Lake Champlain, on a night worth staying out for</span>
+</header>
+
+<main class="wrap" id="table">
+
+  <!-- ========================================================
+       WHO'S HERE — names go in, the wheel gets its wedges.
+       Skip it entirely and the game still works solo.
+  ========================================================= -->
+  <section class="panel" id="setup">
+    <div class="panel-head">
+      <h2>Who's at the table?</h2>
+      <p>Add everyone playing. The wheel decides who answers. Or skip it —
+        you can play this alone with a coffee and still get something out of it.</p>
+    </div>
+
+    <form class="namer" id="name-form" autocomplete="off">
+      <input type="text" id="name-input" maxlength="18" placeholder="Add a name…" aria-label="Add a player">
+      <button type="submit" class="btn btn-quiet">Add</button>
+    </form>
+
+    <div class="players" id="players" role="list"></div>
+
+    <div class="setup-actions">
+      <button class="btn btn-go" id="start-btn" type="button">Start the game</button>
+      <button class="btn btn-ghost" id="solo-btn" type="button">Play solo</button>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       THE GAME
+  ========================================================= -->
+  <section class="game" id="game" hidden>
+
+    <!-- The wheel. Hidden in solo mode — there's nobody to land on. -->
+    <div class="wheel-stage" id="wheel-stage">
+      <div class="pointer" aria-hidden="true"></div>
+      <div class="wheel-wrap">
+        <div class="wheel" id="wheel"></div>
+        <button class="wheel-hub" id="spin-btn" type="button" aria-label="Spin the wheel">
+          <span id="spin-label">Spin</span>
+        </button>
+      </div>
+      <p class="whose-turn" id="whose-turn" aria-live="polite"></p>
+    </div>
+
+    <!-- The question. -->
+    <article class="card" id="card" hidden>
+      <div class="card-tags" id="card-tags"></div>
+      <p class="card-q" id="card-q"></p>
+
+      <div class="card-actions">
+        <button class="btn btn-go" id="next-btn" type="button">Next question</button>
+        <button class="btn btn-ghost" id="skip-btn" type="button">Pass — try another</button>
+        <button class="btn btn-ghost" id="respin-btn" type="button">Someone else</button>
+      </div>
+
+      <!-- The town's answers. Opt-in: it interrupts the game, so it's a
+           door you open on purpose, not something shoved in your face. -->
+      <div class="town">
+        <button class="town-toggle" id="town-toggle" type="button" aria-expanded="false">
+          <span>See what the town said</span>
+          <span class="town-count" id="town-count" hidden></span>
+        </button>
+
+        <div class="town-body" id="town-body" hidden>
+          <div class="town-list" id="town-list"></div>
+
+          <form class="town-form" id="town-form" autocomplete="off">
+            <label class="sr-only" for="answer-input">Your answer</label>
+            <textarea id="answer-input" maxlength="600" rows="3"
+              placeholder="Leave your answer for the next person who lands on this…"></textarea>
+            <div class="town-form-row">
+              <input type="text" id="answer-name" maxlength="24" placeholder="Name (optional)" aria-label="Your name, optional">
+              <button type="submit" class="btn btn-go" id="answer-submit">Add mine</button>
+            </div>
+            <p class="town-note">
+              Anyone can read these. Don't write anything you wouldn't say out loud
+              in a bar on Church Street.
+            </p>
+          </form>
+
+          <p class="town-status" id="town-status" hidden></p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ========================================================
+       FILTERS — the dial that decides how exposed anyone gets.
+  ========================================================= -->
+  <section class="panel filters" id="filters">
+    <div class="panel-head">
+      <h2>Set the temperature</h2>
+      <p>Every question is tagged. Narrow the deck to the room you're actually in.</p>
+    </div>
+
+    <div class="filter-group">
+      <h3>How deep are we going?</h3>
+      <div class="chips" id="depth-chips" role="group" aria-label="Depth"></div>
+    </div>
+
+    <div class="filter-group">
+      <h3>What are we talking about?</h3>
+      <div class="chips" id="topic-chips" role="group" aria-label="Topics"></div>
+      <div class="chips-bulk">
+        <button class="linkish" id="topics-all" type="button">All</button>
+        <button class="linkish" id="topics-none" type="button">None</button>
+        <button class="linkish" id="topics-local" type="button">Burlington only</button>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <h3>House rules</h3>
+      <div class="switches">
+        <label class="switch">
+          <input type="checkbox" id="opt-room" checked>
+          <span><strong>Questions about us</strong>Ones that ask about the people in the room. Needs at least two of you.</span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="opt-heavy">
+          <span><strong>Skip the heavy ones</strong>Leaves out grief, death, regret, and the genuinely painful.</span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="opt-quick">
+          <span><strong>Quick answers only</strong>Cuts the ones that need a proper five-minute story.</span>
+        </label>
+      </div>
+    </div>
+
+    <p class="filter-tally" id="filter-tally"></p>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <span>A <a href="https://www.btownbrief.com">Burlington Brief</a> game · made in Vermont</span>
+  <span>
+    <a href="https://play.btownbrief.com/">More games</a> ·
+    <a href="https://guide.btownbrief.com/">City guide</a>
+  </span>
+</footer>
+
+<script src="js/app.js"></script>
+<script src="https://play.btownbrief.com/nav.js" defer></script>
+</body>
+</html>
