@@ -1,0 +1,104 @@
+/* Stay Awhile — moderation. Same materials as the game, no photograph:
+   this is a workbench, not a front door. */
+
+body.admin { background: var(--ground); }
+
+.admin-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+}
+
+.admin-head h1 {
+  margin: 0;
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(30px, 5vw, 42px); letter-spacing: -.01em;
+}
+.admin-head h1 em { font-style: italic; color: var(--gold); }
+.admin-head p { margin: 8px 0 0; color: var(--muted); font-size: 15px; }
+
+/* ---------------- gate ---------------- */
+
+.gate {
+  margin-top: 36px; padding: 28px;
+  background: var(--glass); border: 1px solid var(--line); border-radius: 18px;
+}
+.gate form { display: flex; gap: 10px; }
+.gate input {
+  flex: 1; min-width: 0;
+  padding: 12px 18px; border-radius: 999px;
+  background: rgba(0,0,0,.3); border: 1px solid var(--line-2);
+  color: var(--ink); font-family: var(--sans); font-size: 15px;
+}
+.gate input:focus { outline: none; border-color: var(--gold); }
+.gate-err { margin: 14px 0 0; color: var(--ember); font-size: 14px; }
+.gate-note { margin: 14px 0 0; color: var(--faint); font-size: 13px; line-height: 1.5; }
+.gate-note code {
+  font-size: 12px; padding: 1px 5px; border-radius: 4px;
+  background: rgba(255,255,255,.07);
+}
+
+/* ---------------- bar ---------------- */
+
+.admin-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+  margin: 36px 0 22px;
+}
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+.tabs .n {
+  display: inline-block; margin-left: 7px;
+  padding: 1px 7px; border-radius: 999px;
+  background: rgba(255,255,255,.1); font-size: 11px;
+}
+.admin-bar-right { display: flex; gap: 16px; }
+
+/* ---------------- a row ---------------- */
+
+.mod {
+  padding: 17px 19px; margin-bottom: 10px;
+  background: var(--glass); border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+/* Reported but still public — the only thing on this page that's urgent. */
+.mod.is-flagged { border-color: rgba(255,107,53,.55); background: rgba(255,107,53,.07); }
+.mod.is-hidden  { opacity: .55; }
+
+.mod-q { font-size: 12px; color: var(--faint); margin-bottom: 9px; }
+.mod-q a { color: var(--gold); text-decoration: none; font-weight: 600; }
+.mod-q a:hover { text-decoration: underline; }
+.mod-q span { color: var(--muted); }
+
+.mod-body {
+  margin: 0; font-size: 15px; line-height: 1.5;
+  color: var(--ink); white-space: pre-wrap;
+}
+
+.mod-meta {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin-top: 12px; font-size: 12px; color: var(--faint);
+}
+.mod-meta .who { color: var(--gold); font-weight: 500; }
+
+.flagpill {
+  padding: 2px 9px; border-radius: 999px;
+  background: rgba(255,107,53,.18); color: var(--ember); font-weight: 600;
+}
+.hidpill {
+  padding: 2px 9px; border-radius: 999px;
+  background: rgba(255,255,255,.09); color: var(--muted);
+}
+
+.mod-actions { margin-left: auto; display: flex; gap: 14px; }
+.linkish.danger { color: var(--ember); }
+.linkish.danger:hover { color: #ff9068; }
+
+.admin-empty {
+  padding: 40px 0; text-align: center;
+  color: var(--faint); font-style: italic;
+}
+
+@media (max-width: 560px) {
+  .mod-actions { margin-left: 0; width: 100%; padding-top: 8px; }
+}

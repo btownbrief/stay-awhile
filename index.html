@@ -47,6 +47,21 @@
 <main class="wrap" id="table">
 
   <!-- ========================================================
+       QUESTIONS OF THE WEEK — two, the same two for the whole town,
+       Monday to Sunday. One for each edition of the Brief. This is
+       what the newsletter links to, and it's what stops the town's
+       answers being spread so thin across 311 cards that every card
+       reads "nobody has answered this yet" forever.
+  ========================================================= -->
+  <section class="qotw" id="qotw" hidden>
+    <div class="qotw-head">
+      <span class="qotw-label">Questions of the week</span>
+      <span class="qotw-date" id="qotw-date"></span>
+    </div>
+    <ol class="week" id="week-list"></ol>
+  </section>
+
+  <!-- ========================================================
        WHO'S HERE — names go in, the wheel gets its wedges.
        Skip it entirely and the game still works solo.
   ========================================================= -->
@@ -63,6 +78,19 @@
     </form>
 
     <div class="players" id="players" role="list"></div>
+
+    <!-- How the deck should build. "Straight up" honours whatever depth you've
+         filtered to; "the slow burn" ignores it and takes you down by degrees. -->
+    <div class="modes">
+      <h3>How should it build?</h3>
+      <div class="chips" id="mode-chips" role="group" aria-label="How the game builds">
+        <button class="chip chip-mode" data-mode="straight" aria-pressed="true">Straight up</button>
+        <button class="chip chip-mode" data-mode="burn" aria-pressed="false">The slow burn ↗</button>
+      </div>
+      <p class="mode-note" id="mode-note">
+        Questions come at whatever depth you've set in the filters below.
+      </p>
+    </div>
 
     <div class="setup-actions">
       <button class="btn btn-go" id="start-btn" type="button">Start the game</button>
@@ -87,15 +115,35 @@
       <p class="whose-turn" id="whose-turn" aria-live="polite"></p>
     </div>
 
+    <!-- How far down the slow burn has taken us. Only shown in that mode. -->
+    <div class="burn" id="burn" hidden>
+      <ol class="burn-steps">
+        <li data-step="light"><span>Shallow end</span></li>
+        <li data-step="warm"><span>Waist deep</span></li>
+        <li data-step="deep"><span>Deep water</span></li>
+      </ol>
+      <p class="burn-note" id="burn-note"></p>
+    </div>
+
     <!-- The question. -->
     <article class="card" id="card" hidden>
       <div class="card-tags" id="card-tags"></div>
       <p class="card-q" id="card-q"></p>
 
+      <!-- Optional. Off by default — most tables don't want a clock on a
+           conversation, but a table of eight does. -->
+      <div class="timer" id="timer" hidden>
+        <div class="timer-track"><div class="timer-bar" id="timer-bar"></div></div>
+        <span class="timer-left" id="timer-left"></span>
+        <button class="timer-more" id="timer-more" type="button">+30s</button>
+      </div>
+
       <div class="card-actions">
         <button class="btn btn-go" id="next-btn" type="button">Next question</button>
         <button class="btn btn-ghost" id="skip-btn" type="button">Pass — try another</button>
         <button class="btn btn-ghost" id="respin-btn" type="button">Someone else</button>
+        <button class="btn btn-go" id="play-all" type="button" hidden>Play the whole game →</button>
+        <button class="btn btn-ghost" id="share-btn" type="button">Copy link</button>
       </div>
 
       <!-- The town's answers. Opt-in: it interrupts the game, so it's a
@@ -141,6 +189,9 @@
     <div class="filter-group">
       <h3>How deep are we going?</h3>
       <div class="chips" id="depth-chips" role="group" aria-label="Depth"></div>
+      <p class="depth-lock" id="depth-lock" hidden>
+        The slow burn is driving — it sets the depth as you go.
+      </p>
     </div>
 
     <div class="filter-group">
@@ -167,6 +218,18 @@
         <label class="switch">
           <input type="checkbox" id="opt-quick">
           <span><strong>Quick answers only</strong>Cuts the ones that need a proper five-minute story.</span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="opt-timer">
+          <span>
+            <strong>Answer timer</strong>
+            For bigger tables, where one person can talk out the whole night.
+            <select id="timer-secs" aria-label="Seconds per answer">
+              <option value="45">45 seconds</option>
+              <option value="90">90 seconds</option>
+              <option value="180">3 minutes</option>
+            </select>
+          </span>
         </label>
       </div>
     </div>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Stay Awhile — moderation</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin">
+
+<main class="admin-wrap">
+
+  <header class="admin-head">
+    <h1>Stay Awhile <em>moderation</em></h1>
+    <p id="admin-sub">Reported answers come to the top. Nothing here is public until you say so.</p>
+  </header>
+
+  <!-- Passphrase gate. The passphrase is never checked in the browser — every
+       admin RPC verifies it server-side, so a peek at this source buys nothing. -->
+  <section class="gate" id="gate">
+    <form id="gate-form" autocomplete="off">
+      <input type="password" id="pass-input" placeholder="Admin passphrase" autocomplete="current-password">
+      <button type="submit" class="btn btn-go">Unlock</button>
+    </form>
+    <p class="gate-err" id="gate-err" hidden></p>
+    <p class="gate-note">
+      Same passphrase as the photo admin. If it won't unlock, the SQL in
+      <code>db/stay-awhile.sql</code> hasn't been run yet.
+    </p>
+  </section>
+
+  <section id="board" hidden>
+    <div class="admin-bar">
+      <div class="tabs" id="tabs" role="group" aria-label="Filter">
+        <button class="chip" data-tab="flagged" aria-pressed="true">Needs a look <span class="n" id="n-flagged">0</span></button>
+        <button class="chip" data-tab="hidden"  aria-pressed="false">Hidden <span class="n" id="n-hidden">0</span></button>
+        <button class="chip" data-tab="all"     aria-pressed="false">Everything <span class="n" id="n-all">0</span></button>
+      </div>
+      <div class="admin-bar-right">
+        <button class="linkish" id="refresh">Refresh</button>
+        <button class="linkish" id="lock">Lock</button>
+      </div>
+    </div>
+
+    <div id="rows"></div>
+    <p class="admin-empty" id="empty" hidden></p>
+  </section>
+
+</main>
+
+<script src="js/admin.js"></script>
+</body>
+</html>

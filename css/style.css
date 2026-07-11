@@ -465,3 +465,160 @@ body {
   .card { animation: none; }
   html { scroll-behavior: auto; }
 }
+
+/* ============================================================
+   QUESTIONS OF THE WEEK
+   Two, the same two for the whole town, Monday to Sunday — one for
+   each edition of the Brief. It's what the newsletter links to, and
+   it's what stops the town's answers being spread so thin across 311
+   cards that every card reads "nobody has answered this yet" forever.
+============================================================ */
+
+.qotw {
+  background: linear-gradient(150deg, rgba(232,176,75,.14), rgba(255,107,53,.06));
+  border: 1px solid rgba(232, 176, 75, .34);
+  border-radius: 20px;
+  padding: 28px 30px 26px;
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+
+.qotw-head {
+  display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.qotw-label {
+  font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--gold);
+}
+.qotw-date { font-size: 12px; color: var(--faint); }
+
+.week { list-style: none; margin: 0; padding: 0; }
+
+.week-q { padding: 22px 0; border-bottom: 1px solid rgba(232,176,75,.2); }
+.week-q:last-child { border-bottom: 0; padding-bottom: 0; }
+
+.week-question {
+  margin: 0;
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(23px, 3.3vw, 32px);
+  line-height: 1.2; letter-spacing: -.01em;
+}
+
+.week-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+
+/* ============================================================
+   THE SLOW BURN
+   Three rungs. You start on the first whether you like it or not,
+   and the game walks you down. Nobody chooses "deep water" from a
+   cold start; they'll happily arrive there twenty minutes in.
+============================================================ */
+
+.burn { text-align: center; }
+
+.burn-steps {
+  list-style: none; margin: 0; padding: 0;
+  display: inline-flex; align-items: center; gap: 0;
+}
+.burn-steps li {
+  display: flex; align-items: center;
+  font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--faint);
+  transition: color .4s;
+}
+/* The rule between rungs. */
+.burn-steps li + li::before {
+  content: ""; width: 34px; height: 1px; margin: 0 12px;
+  background: var(--line-2);
+}
+.burn-steps li.done { color: var(--muted); }
+.burn-steps li.on[data-step="light"] { color: var(--lake); }
+.burn-steps li.on[data-step="warm"]  { color: var(--gold); }
+.burn-steps li.on[data-step="deep"]  { color: var(--ember); }
+.burn-steps li.on span {
+  position: relative;
+}
+.burn-steps li.on span::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -5px;
+  height: 1px; background: currentColor;
+}
+
+.burn-note { margin: 12px 0 0; font-size: 13px; color: var(--faint); }
+
+/* The depth chips go inert when the burn is driving — better to grey them and
+   say why than to leave live-looking controls that do nothing. */
+.chips.inert { opacity: .35; pointer-events: none; }
+.depth-lock { margin: 11px 0 0; font-size: 12px; color: var(--gold); }
+
+/* ============================================================
+   THE ANSWER TIMER — opt-in, for tables big enough that one person
+   can talk out the whole night.
+============================================================ */
+
+.timer { display: flex; align-items: center; gap: 13px; margin-top: 26px; }
+
+.timer-track {
+  flex: 1; height: 3px; border-radius: 2px;
+  background: rgba(255,255,255,.1); overflow: hidden;
+}
+.timer-bar { height: 100%; width: 100%; background: var(--gold); }
+
+.timer-left {
+  font-size: 12px; font-variant-numeric: tabular-nums;
+  color: var(--muted); min-width: 42px; text-align: right;
+}
+
+.timer-more {
+  background: none; border: 1px solid var(--line-2); border-radius: 999px;
+  padding: 4px 11px; cursor: pointer;
+  color: var(--muted); font-family: var(--sans); font-size: 12px;
+}
+.timer-more:hover { color: var(--ink); border-color: rgba(255,255,255,.35); }
+
+.timer.up .timer-bar { background: var(--ember); }
+.timer.up .timer-left { color: var(--ember); font-weight: 600; }
+
+/* ---------------- hearts on answers ---------------- */
+
+.answer-heart {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: none; border: 0; padding: 0 2px; cursor: pointer;
+  color: var(--faint); font-family: var(--sans); font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  transition: color .18s, transform .15s;
+}
+.answer-heart:hover:not(:disabled) { color: var(--ember); transform: scale(1.08); }
+.answer-heart.on { color: var(--ember); }
+.answer-heart:disabled { cursor: default; }
+
+/* Push report to the far right, now that the heart sits beside it. */
+.answer-flag { margin-left: auto; }
+
+/* ---------------- the timer's dropdown, inside a switch ---------------- */
+
+.switch select {
+  display: block; margin-top: 8px;
+  padding: 6px 10px; border-radius: 8px;
+  background: rgba(0,0,0,.3); border: 1px solid var(--line-2);
+  color: var(--ink); font-family: var(--sans); font-size: 13px;
+}
+.switch select:disabled { opacity: .45; }
+
+/* ---------------- setup: how it builds ---------------- */
+
+.modes { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--line); }
+.modes h3 {
+  margin: 0 0 13px;
+  font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--faint);
+}
+.chip-mode[aria-pressed="true"] {
+  background: rgba(255,107,53,.16); border-color: var(--ember); color: var(--ember);
+}
+.mode-note { margin: 13px 0 0; font-size: 13px; color: var(--muted); max-width: 56ch; line-height: 1.5; }
+
+@media (max-width: 640px) {
+  .qotw { padding: 22px 20px; border-radius: 16px; }
+  .week-actions .btn { flex: 1 1 auto; }
+  .burn-steps li + li::before { width: 14px; margin: 0 7px; }
+  .burn-steps li { font-size: 10px; letter-spacing: .06em; }
+}
