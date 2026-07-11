@@ -1,7 +1,7 @@
 # Stay Awhile
 
-A conversation game for Burlington. Spin the wheel, land on someone, ask them
-something that isn't small talk.
+A conversation game for Burlington. Spin the wheel (or don't — solo works too),
+land on someone, ask them something that isn't small talk.
 
 **Live:** https://play.btownbrief.com/stay-awhile/
 **Moderation:** https://play.btownbrief.com/stay-awhile/admin.html
