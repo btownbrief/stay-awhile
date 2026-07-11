@@ -1,7 +1,7 @@
 # Stay Awhile
 
-A conversation game for Burlington. Spin the wheel (or don't — solo works too),
-land on someone, ask them something that isn't small talk.
+A conversation game for Burlington. Deal three questions, ask them out loud,
+find out who you're sitting with.
 
 **Live:** https://play.btownbrief.com/stay-awhile/
 **Moderation:** https://play.btownbrief.com/stay-awhile/admin.html
@@ -12,63 +12,62 @@ as well as the arcade.
 
 ## How it works
 
-### The deck
-311 questions in `data/questions.json`, each tagged with a depth (`light` /
-`warm` / `deep`), one or more topics, and flags:
+The whole game is: **here are three questions, ask them.** One button deals three
+more. No setup screen, no names, nothing to agree to before you can read a
+question.
 
-- `room` — asks about the people physically present ("who here would win on
-  Jeopardy?"). Automatically excluded when fewer than two players.
-- `heavy` — grief, death, regret, real pain. The *Skip the heavy ones* switch
-  takes these out.
-- `long` — needs a proper five-minute story. *Quick answers only* drops these.
+Everything else is a link you can choose to click.
 
-37 of the questions are Burlington/Vermont specific; **Burlington only** in the
-filters gives you nothing but those.
+### The dials
+Two rows. That is the entire filter surface, deliberately.
 
-### The wheel
-An SVG wheel of whoever's at the table. It picks who answers. Two players
-minimum; solo mode drops the wheel and just deals cards.
+- **How deep** — Shallow end / Waist deep / Deep water, plus **the slow burn**,
+  which is the fourth setting rather than a mode of its own: it takes the depth
+  out of your hands and walks you down as you play (two deals shallow, two waist
+  deep, then deep water).
+- **About** — five buckets: Burlington, Back then, People, Big questions, Off the
+  cuff. The fifteen topic tags in `data/questions.json` are untouched; they just
+  roll up to these. Fifteen chips was a filing system, not a filter.
 
-### The slow burn
-Opt-in, from the setup screen. Instead of honouring the depth filter, it starts
-you in the shallow end and walks you down:
+Two things that used to be switches are now just rules, because a rule you don't
+have to read beats a switch you have to find:
 
-| Question | Depth |
-|---|---|
-| 1–4 | Shallow end |
-| 5–10 | Waist deep |
-| 11+ | Deep water |
+- **Heavy questions** (grief, death, regret — the `heavy` flag) only appear if
+  you've actually asked for **Deep water**.
+- **Questions about the room** (the `room` flag — "who here would win on
+  Jeopardy?") only appear when the wheel is up with at least two names on it.
 
-Nobody picks "deep water" from a cold start. They'll happily *arrive* there
-twenty minutes in. A pass doesn't advance the burn — only a real turn does.
+### The wheel — opt-in
+A quiet link, not the front door. Only when you open it does it ask for names,
+because a wheel has to have something to land on. Inside it: one question at a
+time, and the optional answer timer for a table big enough that one person can
+talk out the whole night.
+
+### The whole deck
+"See all 311 questions" reveals the lot, searchable. Tap any one to answer it.
 
 ### Questions of the week
-Two questions a week, **the same two for the whole town**, Monday to Sunday —
-one for each edition of the Brief.
+Two questions a week, **the same two for the whole town**, Monday to Sunday — one
+for each edition of the Brief.
 
-It's a fixed shuffle of the deck walked two steps a week. 311 is odd, so
-stepping by two cycles through every question before any repeats — about three
-years of Mondays. It turns over at local midnight on Monday. Because it's
-deterministic there's nothing to store, nothing to schedule, and no cron job to
-forget about.
+It's a fixed shuffle of the deck walked two steps a week. 311 is odd, so stepping
+by two cycles through every question before any repeats — about three years of
+Mondays. Deterministic, so there's nothing to store and no cron job to forget
+about.
 
-This is also what stops the community answers looking dead: without it, answers
+It's also what stops the community answers looking dead: without it, answers
 spread so thin across 311 cards that every card reads "nobody has answered this
-yet" forever. Two questions a week concentrate them.
+yet" forever.
 
 ### Deep links
-`?q=q142` opens any single question on its own, with the town's answers already
-expanded — **this is what you put in the newsletter.** Every card has a **Copy
-link** button, including the two on the weekly panel.
-
-`?q=week` is the set-and-forget address: it always lands on whatever the current
-pair happens to be.
+`?q=q142` opens any single question on its own with the town's answers already
+up — **this is what you put in the newsletter.** Every card has a Link button.
+`?q=week` always lands on the current pair.
 
 ### The town
-Other people's answers to the same question, behind a deliberate "See what the
-town said" click. It's opt-in because reading them mid-game kills the
-conversation, which is the entire point of the game. Answers can be hearted
-(one per browser); the best float to the top.
+What other people answered, per question, behind a click. It's a click because
+reading it mid-conversation kills the conversation, which is the entire point of
+the game. Answers can be hearted (one per browser); the best float to the top.
 
 ## The town's answers (Supabase)
 
