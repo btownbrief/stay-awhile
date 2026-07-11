@@ -64,10 +64,18 @@ yet" forever.
 up — **this is what you put in the newsletter.** Every card has a Link button.
 `?q=week` always lands on the current pair.
 
-### The town
-What other people answered, per question, behind a click. It's a click because
-reading it mid-conversation kills the conversation, which is the entire point of
-the game. Answers can be hearted (one per browser); the best float to the top.
+### Leaving an answer, and reading the town's
+Every card carries a **small answer box, always** — one quiet line tall, muted,
+with the word *optional* written on it. Nobody has to write anything to play, and
+the box has to look like it knows that. It grows as you type; the name field only
+turns up once there's something worth signing; Enter sends.
+
+Reading what everyone *else* said is separate, behind **"See what the town said"**
+— because reading other people's answers mid-conversation kills the conversation,
+which is the entire point of the game. Leaving your own answer opens the town
+underneath it, so you see yours land next to theirs.
+
+Answers can be hearted (one per browser); the best float to the top.
 
 ## The town's answers (Supabase)
 

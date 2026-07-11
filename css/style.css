@@ -222,11 +222,39 @@ body {
 .chip-burn { margin-left: 8px; }
 .chip-burn[aria-pressed="true"] { background: rgba(255,107,53,.16); border-color: var(--ember); color: var(--ember); }
 
+/* ---------------- the two other ways in ----------------
+   These used to be two underlined sentences, which is how you dress something
+   you want ignored. They're the two best things on the page after the cards, so
+   they get to be objects: a real wheel you can see spinning, and a deck of
+   cards. */
+
 .ways {
-  margin: 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-  font-size: 13px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
-.ways-dot { color: var(--line-2); }
+
+.way {
+  display: flex; align-items: center; gap: 14px;
+  padding: 15px 18px; border-radius: 14px;
+  background: var(--glass); border: 1px solid var(--line-2);
+  color: var(--ink); cursor: pointer; text-align: left;
+  font-family: var(--sans);
+  transition: background .2s, border-color .2s, transform .2s;
+}
+.way:hover { background: var(--glass-2); border-color: rgba(255,255,255,.36); transform: translateY(-1px); }
+.way:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.way-icon { flex: none; display: flex; }
+.way-icon svg { display: block; }
+
+/* The wheel turns when you reach for it — so it reads as a wheel, not a pie. */
+.way-wheel { transform-origin: 20px 20px; transition: transform .9s cubic-bezier(.16,1,.3,1); }
+.way:hover .way-wheel { transform: rotate(150deg); }
+
+.way-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.way-text strong { font-size: 14.5px; font-weight: 600; letter-spacing: -.005em; }
+.way-text small { font-size: 12.5px; color: var(--muted); font-weight: 300; }
 
 .linkish {
   background: none; border: 0; padding: 0; cursor: pointer;
@@ -436,24 +464,63 @@ body {
 .answer-flag:hover { color: var(--ember); }
 .answer-flag:disabled { opacity: .5; cursor: default; text-decoration: none; }
 
-.town-form { margin-top: 12px; }
-.town-form textarea {
-  width: 100%; padding: 11px 14px; border-radius: 12px;
-  background: rgba(0,0,0,.28); border: 1px solid var(--line-2);
-  color: var(--ink); font-family: var(--sans); font-size: 14px; line-height: 1.5; resize: vertical;
-}
-.town-form textarea::placeholder { color: var(--faint); }
-.town-form textarea:focus { outline: none; border-color: var(--gold); }
-.town-form-row { display: flex; gap: 8px; margin-top: 8px; }
-.town-form-row input {
-  flex: 1; min-width: 0; padding: 9px 14px; border-radius: 999px;
-  background: rgba(0,0,0,.28); border: 1px solid var(--line-2);
-  color: var(--ink); font-family: var(--sans); font-size: 13px;
-}
-.town-form-row input::placeholder { color: var(--faint); }
-.town-form-row input:focus { outline: none; border-color: var(--gold); }
-.town-form-row .btn { padding: 9px 16px; font-size: 13px; }
 .town-status { margin: 10px 0 0; font-size: 12.5px; color: var(--gold); }
+
+/* ---------------- the answer box ----------------
+   Always on the card, never behind a click — but one quiet line tall, muted,
+   and it says "optional" on it. Nobody has to write anything to play this, and
+   the box has to look like it knows that. It grows as you type; the name field
+   only turns up once there's something worth signing. */
+
+.q-answer { margin-bottom: 16px; }
+
+.ans-row { display: flex; align-items: flex-end; gap: 8px; }
+
+.ans {
+  flex: 1; min-width: 0;
+  min-height: 38px; max-height: 150px;
+  padding: 9px 13px; border-radius: 11px;
+  background: rgba(0, 0, 0, .24);
+  border: 1px solid var(--line);
+  color: var(--ink); font-family: var(--sans); font-size: 13.5px;
+  line-height: 1.45; resize: none; overflow-y: auto;
+  transition: border-color .18s, background .18s;
+}
+.ans::placeholder { color: var(--faint); }
+.ans:focus {
+  outline: none;
+  border-color: rgba(232, 176, 75, .55);
+  background: rgba(0, 0, 0, .34);
+}
+
+.ans-go {
+  flex: none; width: 34px; height: 34px; margin-bottom: 2px;
+  border-radius: 50%; cursor: pointer;
+  background: var(--ember); border: 1px solid var(--ember); color: #14100E;
+  font-size: 15px; line-height: 1;
+  transition: opacity .18s, transform .15s;
+}
+.ans-go:hover:not(:disabled) { transform: translateY(-1px); }
+/* Dormant until there's something to send — so an empty card reads as "you
+   don't have to", not "you haven't yet". */
+.ans-go:disabled {
+  background: transparent; border-color: var(--line);
+  color: var(--faint); cursor: default;
+}
+
+.ans-more {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 8px;
+}
+.ans-name {
+  flex: none; width: 140px;
+  padding: 6px 12px; border-radius: 999px;
+  background: rgba(0, 0, 0, .24); border: 1px solid var(--line);
+  color: var(--ink); font-family: var(--sans); font-size: 12.5px;
+}
+.ans-name::placeholder { color: var(--faint); }
+.ans-name:focus { outline: none; border-color: rgba(232, 176, 75, .55); }
+.ans-note { font-size: 11.5px; color: var(--faint); }
 
 /* ---------------- one question, by link ---------------- */
 
@@ -461,7 +528,7 @@ body {
 .single .wrap { gap: 24px; }
 .q-open { max-width: 720px; margin: 0 auto; width: 100%; }
 .q-open .q-text { font-size: clamp(26px, 4.2vw, 40px); }
-.single .ways { justify-content: center; }
+.single .back { margin: 0; display: flex; justify-content: center; }
 
 /* ---------------- FOOT ---------------- */
 
@@ -478,6 +545,7 @@ body {
 @media (max-width: 900px) {
   .trio { grid-template-columns: 1fr; }
   .all-list { columns: 1; }
+  .ways { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {

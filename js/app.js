@@ -159,11 +159,31 @@
 
   /* ---------------- the trio ---------------- */
 
+  /* The answer box sits on the card, always, rather than hiding behind a click —
+     but it stays one quiet line tall and says "optional" on it, because nobody
+     has to write anything to play this. It grows as you type. The name field
+     only appears once there's something to sign. */
   function cardHtml(q, open) {
     var d = DEPTHS.filter(function (x) { return x.slug === q.d; })[0];
     return '' +
       '<span class="q-depth" data-d="' + q.d + '">' + esc(d.label) + '</span>' +
       '<p class="q-text">' + esc(q.q) + '</p>' +
+
+      '<form class="q-answer" data-form="' + q.id + '" autocomplete="off">' +
+        '<div class="ans-row">' +
+          // Short enough to sit on one line inside a card this narrow — a
+          // placeholder that wraps gets clipped by the one-line resting height.
+          '<textarea class="ans" rows="1" maxlength="600" ' +
+            'placeholder="Your answer — optional"></textarea>' +
+          '<button type="submit" class="ans-go" disabled aria-label="Leave your answer">→</button>' +
+        '</div>' +
+        '<div class="ans-more" hidden>' +
+          '<input type="text" class="ans-name" maxlength="24" placeholder="Name (optional)" ' +
+            'value="' + esc(store('sa-name', '') || '') + '">' +
+          '<span class="ans-note">Anyone can read this.</span>' +
+        '</div>' +
+      '</form>' +
+
       '<div class="q-foot">' +
         '<button class="q-reveal" data-reveal="' + q.id + '">See what the town said</button>' +
         '<button class="q-copy" data-copy="' + q.id + '" title="Copy a link to this question">Link</button>' +
@@ -252,7 +272,9 @@
     return Math.round(s / 86400) + 'd ago';
   }
 
-  function townHtml(qid, rows, msg) {
+  /* The reveal is now just the reading half — the answers other people left.
+     Writing your own lives on the card itself and never goes away. */
+  function townHtml(rows, msg) {
     var list = rows.length
       ? rows.map(function (r) {
           return '<div class="answer">' +
@@ -270,70 +292,79 @@
                 : '') +
             '</div></div>';
         }).join('')
-      : '<p class="answer-empty">Nobody’s answered this one. Be the first.</p>';
+      : '<p class="answer-empty">Nobody’s answered this one yet.</p>';
 
     return '<div class="town-list">' + list + '</div>' +
-      '<form class="town-form" data-form="' + qid + '" autocomplete="off">' +
-        '<textarea maxlength="600" rows="2" placeholder="Leave your answer…"></textarea>' +
-        '<div class="town-form-row">' +
-          '<input type="text" maxlength="24" placeholder="Name (optional)" value="' +
-            esc(store('sa-name', '') || '') + '">' +
-          '<button type="submit" class="btn btn-go">Add mine</button>' +
-        '</div>' +
-      '</form>' +
       (msg ? '<p class="town-status">' + esc(msg) + '</p>' : '');
   }
 
-  function loadTown(qid, box) {
+  function loadTown(qid, box, msg) {
     box.hidden = false;
-    box.innerHTML = '<p class="answer-empty">Reading the room…</p>';
-    track('sa-revealed', qid, '');
+    if (!box.innerHTML) box.innerHTML = '<p class="answer-empty">Reading the room…</p>';
 
     var offline = function () {
       townMode = 'local';
-      box.innerHTML = townHtml(qid, localAnswers(qid),
-        'Saved on this device only — the shared answers aren’t switched on yet.');
+      box.innerHTML = townHtml(localAnswers(qid),
+        msg || 'Saved on this device only — the shared answers aren’t switched on yet.');
     };
 
     if (townMode === 'local') return offline();
 
-    rpc('btb_sa_list', { p_qid: qid })
-      .then(function (rows) { townMode = 'live'; box.innerHTML = townHtml(qid, rows || []); })
+    return rpc('btb_sa_list', { p_qid: qid })
+      .then(function (rows) { townMode = 'live'; box.innerHTML = townHtml(rows || [], msg); })
       .catch(offline);
   }
 
+  /* Leaving an answer opens the town underneath it, so you can see yours land
+     next to everyone else's. That's the reward for bothering. */
   function submitAnswer(form, qid) {
-    var ta = form.querySelector('textarea');
-    var nameEl = form.querySelector('input');
+    var ta = form.querySelector('.ans');
+    var nameEl = form.querySelector('.ans-name');
     var body = ta.value.trim();
     if (body.length < 2) return;
-    var name = nameEl.value.trim();
+
+    var name = nameEl ? nameEl.value.trim() : '';
     save('sa-name', name);
 
-    var btn = form.querySelector('button[type=submit]');
-    btn.disabled = true; btn.textContent = 'Adding…';
-    var box = form.closest('[data-town]');
+    var btn = form.querySelector('.ans-go');
+    btn.disabled = true;
 
-    var fallback = function (msg) {
-      townMode = 'local';
-      saveLocalAnswer(qid, { id: 'l' + Date.now(), name: name, body: body,
-                             created_at: new Date().toISOString(), hearts: 0 });
-      box.innerHTML = townHtml(qid, localAnswers(qid), msg);
+    var card = form.closest('.q');
+    var box = card.querySelector('[data-town]');
+    var reveal = card.querySelector('[data-reveal]');
+
+    var reset = function () {
+      ta.value = '';
+      ta.style.height = '';
+      form.querySelector('.ans-more').hidden = true;
+      if (reveal) reveal.textContent = 'Hide what the town said';
     };
 
     track('sa-answered', qid, '');
 
     if (townMode === 'local') {
-      return fallback('Saved on this device. It’ll stay private until the shared answers are on.');
+      saveLocalAnswer(qid, { id: 'l' + Date.now(), name: name, body: body,
+                             created_at: new Date().toISOString(), hearts: 0 });
+      reset();
+      box.innerHTML = '';
+      loadTown(qid, box, 'Saved on this device. It’ll stay private until the shared answers are on.');
+      return;
     }
 
     rpc('btb_sa_submit', { p_qid: qid, p_name: name, p_body: body, p_voter: visitor })
       .then(function () {
-        rpc('btb_sa_list', { p_qid: qid }).then(function (rows) {
-          box.innerHTML = townHtml(qid, rows || [], 'Added. Thanks for actually answering.');
-        });
+        reset();
+        box.innerHTML = '';
+        loadTown(qid, box, 'Added. Thanks for actually answering.');
       })
-      .catch(function () { fallback('Couldn’t reach the town — saved on this device instead.'); });
+      .catch(function () {
+        townMode = 'local';
+        saveLocalAnswer(qid, { id: 'l' + Date.now(), name: name, body: body,
+                               created_at: new Date().toISOString(), hearts: 0 });
+        reset();
+        box.innerHTML = '';
+        loadTown(qid, box, 'Couldn’t reach the town — saved on this device instead.');
+      });
   }
 
   function copyLink(id, btn) {
@@ -540,10 +571,15 @@
       var reveal = e.target.closest('[data-reveal]');
       if (reveal) {
         var id = reveal.getAttribute('data-reveal');
-        var box = document.querySelector('[data-town="' + id + '"]');
+        var box = reveal.closest('.q').querySelector('[data-town]');
         if (!box) return;
-        if (!box.hidden) { box.hidden = true; reveal.textContent = 'See what the town said'; return; }
-        reveal.textContent = 'Hide';
+        if (!box.hidden) {
+          box.hidden = true;
+          reveal.textContent = 'See what the town said';
+          return;
+        }
+        reveal.textContent = 'Hide what the town said';
+        track('sa-revealed', id, '');
         loadTown(id, box);
         return;
       }
@@ -584,6 +620,31 @@
       if (!form) return;
       e.preventDefault();
       submitAnswer(form, form.getAttribute('data-form'));
+    });
+
+    /* The answer box starts one line tall and grows with what you write, so an
+       empty card stays quiet and a long answer still has room. */
+    document.addEventListener('input', function (e) {
+      var ta = e.target.closest('.ans');
+      if (!ta) return;
+      ta.style.height = 'auto';
+      ta.style.height = Math.min(ta.scrollHeight, 150) + 'px';
+
+      var form = ta.closest('.q-answer');
+      var typed = ta.value.trim().length >= 2;
+      form.querySelector('.ans-go').disabled = !typed;
+      form.querySelector('.ans-more').hidden = !typed;   // sign it only once there's something to sign
+    });
+
+    /* Enter sends; shift-enter makes a new line. */
+    document.addEventListener('keydown', function (e) {
+      var ta = e.target.closest('.ans');
+      if (!ta || e.key !== 'Enter' || e.shiftKey) return;
+      e.preventDefault();
+      var form = ta.closest('.q-answer');
+      if (!form.querySelector('.ans-go').disabled) {
+        submitAnswer(form, form.getAttribute('data-form'));
+      }
     });
 
     $('depth-chips').addEventListener('click', function (e) {
