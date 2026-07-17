@@ -5,7 +5,7 @@
 
    Everything else is optional and out of the way. No setup screen, no names,
    nothing to agree to before you can read a question. The wheel is a link you
-   can choose to click; only then does it ask who's playing. Two rows of dials,
+   can choose to click; only then does it ask who's playing. Three rows of dials,
    not twenty. If someone wants the whole deck, they can have the whole deck.
 
    The pieces:
@@ -82,7 +82,13 @@
   /* ---------------- state ---------------- */
 
   var QUESTIONS = [];
-  var dials = store('sa-dials', null) || { depths: ['light', 'warm'], burn: false, topics: null };
+  var savedDials = store('sa-dials', {}) || {};
+  var dials = {
+    depths: savedDials.depths || ['light', 'warm'],
+    burn: !!savedDials.burn,
+    topics: savedDials.topics || null,
+    decks: Object.assign({ classic: true, ford: false }, savedDials.decks || {})
+  };
 
   var served = {};
   var trio = [];
@@ -131,6 +137,9 @@
     var allowRoom = wheelOn && players.length >= 2;
 
     return QUESTIONS.filter(function (q) {
+      var deckMatches = (!q.deck && dials.decks.classic) ||
+                        (q.deck === 'ford' && dials.decks.ford);
+      if (!deckMatches) return false;
       if (use.indexOf(q.d) === -1) return false;
       if (tags && !q.t.some(function (t) { return tags.indexOf(t) !== -1; })) return false;
       if (!allowHeavy && q.f.indexOf('heavy') !== -1) return false;
@@ -281,6 +290,10 @@
         return '<button class="chip" data-topic="' + b.slug + '" aria-pressed="' + isOn + '">' +
                esc(b.label) + '</button>';
       }).join('');
+
+    [].forEach.call($('deck-chips').querySelectorAll('[data-deck]'), function (btn) {
+      btn.setAttribute('aria-pressed', dials.decks[btn.getAttribute('data-deck')]);
+    });
 
     save('sa-dials', dials);
   }
@@ -441,16 +454,17 @@
     return d;
   }
   function questionsOfTheWeek() {
-    var n = QUESTIONS.length;
+    var classic = QUESTIONS.filter(function (q) { return !q.deck; });
+    var n = classic.length;
     if (n < 2) return [];
-    var order = QUESTIONS.map(function (_, i) { return i; });
+    var order = classic.map(function (_, i) { return i; });
     var rnd = mulberry32(20260711);
     for (var i = order.length - 1; i > 0; i--) {
       var j = Math.floor(rnd() * (i + 1));
       var t = order[i]; order[i] = order[j]; order[j] = t;
     }
     var week = Math.round((mondayOfThisWeek() - new Date(2026, 0, 5)) / 604800000);
-    var at = function (k) { return QUESTIONS[order[(((k % n) + n) % n)]]; };
+    var at = function (k) { return classic[order[(((k % n) + n) % n)]]; };
     return [at(week * 2), at(week * 2 + 1)];
   }
   function weekRangeLabel() {
@@ -725,6 +739,16 @@
         if (i === -1) on.push(t); else on.splice(i, 1);
         dials.topics = on.length ? on : null;
       }
+      renderDials(); renderTrio();
+    });
+
+    $('deck-chips').addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-deck]');
+      if (!btn) return;
+      var deck = btn.getAttribute('data-deck');
+      var other = deck === 'classic' ? 'ford' : 'classic';
+      if (dials.decks[deck] && !dials.decks[other]) return;
+      dials.decks[deck] = !dials.decks[deck];
       renderDials(); renderTrio();
     });
 
