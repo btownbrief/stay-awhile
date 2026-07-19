@@ -4,7 +4,7 @@
    photographs that dissolve into it, translucent glass on top.
    Photos are graded (never scrimmed) so white type stays readable.
 
-   The page is deliberately short. Three questions, one button, three
+   The page is deliberately short. Three questions, one button, two
    rows of dials. Everything else is a link you can choose to click.
 ============================================================ */
 
@@ -107,6 +107,34 @@ body {
   padding: 76px 24px 40px;
   display: flex; flex-direction: column; gap: 44px;
 }
+
+/* ---------------- MODE ---------------- */
+
+.mode-control { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.mode-switch {
+  display: grid; grid-template-columns: 1fr 1fr;
+  width: min(100%, 480px); padding: 4px; border-radius: 999px;
+  background: var(--glass); border: 1px solid var(--line);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+.mode-tab {
+  min-height: 44px; padding: 10px 18px; border: 1px solid transparent; border-radius: 999px;
+  background: transparent; color: var(--muted); cursor: pointer;
+  font-family: var(--sans); font-size: 15px; font-weight: 600;
+  transition: background .2s, border-color .2s, color .2s;
+}
+.mode-tab:hover { color: var(--ink); }
+.mode-tab:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+#mode-classic[aria-selected="true"] { background: var(--ember); border-color: var(--ember); color: #14100E; }
+#mode-catchup[aria-selected="true"] { background: var(--lake); border-color: var(--lake); color: #14100E; }
+.mode-note { margin: 0; min-height: 1.6em; color: var(--faint); font-size: 13px; text-align: center; }
+
+body[data-mode="catchup"] .dials,
+body[data-mode="catchup"] #qotw,
+body[data-mode="catchup"] #deal-note,
+body[data-mode="catchup"] #open-all,
+body[data-mode="catchup"] #all-panel { display: none !important; }
+body[data-mode="catchup"] .ways { grid-template-columns: 1fr; }
 
 /* ---------------- QUESTIONS OF THE WEEK ---------------- */
 
@@ -245,7 +273,6 @@ body {
 .chip-depth[aria-pressed="true"][data-d="light"] { background: rgba(91,200,245,.16);  border-color: var(--lake);  color: var(--lake); }
 .chip-depth[aria-pressed="true"][data-d="warm"]  { background: rgba(232,176,75,.16);  border-color: var(--gold);  color: var(--gold); }
 .chip-depth[aria-pressed="true"][data-d="deep"]  { background: rgba(255,107,53,.16);  border-color: var(--ember); color: var(--ember); }
-.chip-deck[aria-pressed="true"] { background: rgba(232,176,75,.16); border-color: var(--gold); color: var(--gold); }
 .chip-burn { margin-left: 8px; }
 .chip-burn[aria-pressed="true"] { background: rgba(255,107,53,.16); border-color: var(--ember); color: var(--ember); }
 
