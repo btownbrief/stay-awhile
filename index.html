@@ -70,7 +70,7 @@
       <p class="deal-note" id="deal-note"></p>
     </div>
 
-    <!-- Three rows. That is the entire filter surface. -->
+    <!-- Three filters and one optional house rule. -->
     <div class="dials">
       <div class="dial">
         <span class="dial-label">How deep</span>
@@ -85,6 +85,12 @@
         <div class="chips" id="deck-chips" role="group" aria-label="Deck">
           <button class="chip chip-deck" data-deck="classic" aria-pressed="true">🎡 Classic</button>
           <button class="chip chip-deck" data-deck="ford" aria-pressed="false">🚗 FORD</button>
+        </div>
+      </div>
+      <div class="dial">
+        <span class="dial-label">House rules</span>
+        <div class="chips" id="rule-chips" role="group" aria-label="House rules">
+          <button class="chip" data-talking-points="1" aria-pressed="false" type="button">🗞 Sprinkle in the news</button>
         </div>
       </div>
     </div>
@@ -175,6 +181,7 @@
       <article class="card" id="wheel-card" hidden>
         <span class="q-depth" id="wc-depth"></span>
         <p class="q-text" id="wc-text"></p>
+        <div class="q-foot" id="wc-source" hidden></div>
 
         <div class="timer" id="timer" hidden>
           <div class="timer-track"><div class="timer-bar" id="timer-bar"></div></div>

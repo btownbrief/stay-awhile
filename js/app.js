@@ -10,7 +10,7 @@
 
    The pieces:
      THE TRIO   — three questions, one button. That's the game.
-     THE DIALS  — how deep, and roughly what about. Two rows, that's all.
+     THE DIALS  — how deep, roughly what about, and one optional house rule.
                   "The slow burn" is the fourth depth setting rather than a mode
                   of its own: it just takes the depth out of your hands and
                   walks you down as you play.
@@ -87,12 +87,19 @@
     depths: savedDials.depths || ['light', 'warm'],
     burn: !!savedDials.burn,
     topics: savedDials.topics || null,
-    decks: Object.assign({ classic: true, ford: false }, savedDials.decks || {})
+    decks: Object.assign({ classic: true, ford: false }, savedDials.decks || {}),
+    talkingPoints: !!savedDials.talkingPoints
   };
 
   var served = {};
   var trio = [];
   var round = 0;
+
+  var TALKING_POINTS = [];
+  var tpServed = {};
+  var tpLoading = null;
+  var drawCount = 0;
+  var lastWasTalkingPoint = false;
 
   var players = store('sa-players', []);
   var wheelOn = false;
@@ -166,6 +173,116 @@
     return out;
   }
 
+  /* ---------------- talking points ---------------- */
+
+  function toast(message) {
+    var old = document.querySelector('.toast');
+    if (old) old.remove();
+    var el = document.createElement('div');
+    el.className = 'toast'; el.setAttribute('role', 'status'); el.textContent = message;
+    document.body.appendChild(el);
+    setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 2600);
+  }
+
+  function distillTalkingPoints(doc) {
+    var allowed = { news: true, food: true, roads: true, cityhall: true, events: true };
+    var cutoff = Date.now() - 7 * 86400000;
+    var seen = [];
+
+    return ((doc && doc.events) || []).filter(function (item) {
+      var at = new Date(item.ts).getTime();
+      return allowed[item.category] && item.headline && at >= cutoff && at <= Date.now();
+    }).sort(function (a, b) {
+      return (Number(b.priority) || 0) - (Number(a.priority) || 0) ||
+             new Date(b.ts).getTime() - new Date(a.ts).getTime();
+    }).reduce(function (points, item) {
+      var headline = String(item.headline).trim();
+      if (item.category === 'events') headline = headline.replace(/^New event:\s*/i, '');
+      headline = headline.replace(/\.+$/, '');
+
+      var normalized = headline.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().slice(0, 64);
+      if (!normalized || seen.some(function (key) {
+        return key.indexOf(normalized) === 0 || normalized.indexOf(key) === 0;
+      })) return points;
+      seen.push(normalized);
+
+      var text = item.category === 'roads'
+        ? 'Heads up if you drive — ' + headline + '. Anyone hit that yet?'
+        : item.category === 'food'
+          ? 'Food news: ' + headline + '. Have you been?'
+          : item.category === 'events'
+            ? 'This is happening — ' + headline + '. Anyone going?'
+            : 'Did you hear about this one — ' + headline + '?';
+
+      if (text.length <= 140 && points.length < 20) points.push({
+        _tp: true,
+        text: text,
+        url: item.url || null,
+        sourceName: item.sourceName || item.source || '',
+        category: item.category
+      });
+      return points;
+    }, []);
+  }
+
+  function loadTalkingPoints() {
+    if (tpLoading) return tpLoading;
+    var curated = fetch('data/talking-points.json')
+      .then(function (r) { if (!r.ok) throw new Error('talking points → ' + r.status); return r.json(); })
+      .then(function (doc) {
+        return (doc.points || []).filter(function (p) { return p && p.text; }).map(function (p) {
+          return { _tp: true, text: String(p.text), url: p.url || null,
+                   sourceName: p.sourceName || '', category: p.category || 'curated' };
+        });
+      })
+      .catch(function () { return []; });
+    var fresh = fetch('https://guide.btownbrief.com/data/changes/changes.json')
+      .then(function (r) { if (!r.ok) throw new Error('changes → ' + r.status); return r.json(); })
+      .then(distillTalkingPoints)
+      .catch(function () { return []; });
+
+    tpLoading = Promise.all([curated, fresh])
+      .then(function (pools) { TALKING_POINTS = pools[0].concat(pools[1]); })
+      .then(function () {
+        if (!TALKING_POINTS.length) {
+          dials.talkingPoints = false;
+          save('sa-dials', dials);
+          renderDials();
+          toast('No fresh chatter right now');
+        }
+      });
+    return tpLoading;
+  }
+
+  function takeTalkingPoint() {
+    var fresh = TALKING_POINTS.filter(function (point) { return !tpServed[point.text]; });
+    if (!fresh.length) { tpServed = {}; fresh = TALKING_POINTS.slice(); }
+    if (!fresh.length) return null;
+    var point = fresh[Math.floor(Math.random() * fresh.length)];
+    tpServed[point.text] = true;
+    return point;
+  }
+
+  function dealOne(live, exclude, batchHasTalkingPoint) {
+    if (dials.talkingPoints) {
+      drawCount += 1;
+      if (drawCount % 3 === 0 && !lastWasTalkingPoint && !batchHasTalkingPoint) {
+        var point = takeTalkingPoint();
+        if (point) { lastWasTalkingPoint = true; return point; }
+      }
+    }
+    var q = take(live, 1, exclude)[0] || null;
+    lastWasTalkingPoint = false;
+    return q;
+  }
+
+  function talkingPointHtml(point) {
+    return '<span class="q-depth q-tp-kicker">AROUND TOWN THIS WEEK</span>' +
+      '<p class="q-text">' + esc(point.text) + '</p>' +
+      (point.url ? '<div class="q-foot"><a class="q-tp-source" href="' + esc(point.url) +
+        '" target="_blank" rel="noopener">from ' + esc(point.sourceName || 'source') + ' ↗</a></div>' : '');
+  }
+
   /* ---------------- the trio ---------------- */
 
   /* The answer box sits on the card, always, rather than hiding behind a click —
@@ -214,6 +331,7 @@
 
   function fitQuestion(el) {
     if (!el) return;
+    if (el.closest('.q-tp')) { el.style.fontSize = ''; return; }
 
     /* One column (phones): the cards are stacked, so there is no reason to force
        them all to the same height — and forcing it leaves "Do you lock your
@@ -254,14 +372,30 @@
     }
 
     round += 1;
-    trio = take(live, Math.min(3, live.length), trio.map(function (q) { return q.id; }));
+    var previous = trio.filter(function (item) { return !item._tp; }).map(function (q) { return q.id; });
+    var next = [], batchHasTalkingPoint = false;
+    for (var i = 0; i < Math.min(3, live.length); i++) {
+      var exclude = previous.concat(next.filter(function (item) { return !item._tp; })
+        .map(function (q) { return q.id; }));
+      var item = dealOne(live, exclude, batchHasTalkingPoint);
+      if (item) {
+        next.push(item);
+        if (item._tp) batchHasTalkingPoint = true;
+      }
+    }
+    trio = next;
 
-    $('trio').innerHTML = trio.map(function (q) {
-      return '<article class="q" data-id="' + q.id + '">' + cardHtml(q) + '</article>';
+    $('trio').innerHTML = trio.map(function (item) {
+      return item._tp
+        ? '<article class="q q-tp">' + talkingPointHtml(item) + '</article>'
+        : '<article class="q" data-id="' + item.id + '">' + cardHtml(item) + '</article>';
     }).join('');
 
     fitAll();
-    trio.forEach(function (q) { track('sa-served', q.id, q.d); });
+    trio.forEach(function (item) {
+      if (item._tp) track('sa-tp-served', 'tp', item.category);
+      else track('sa-served', item.id, item.d);
+    });
 
     $('deal-note').textContent = dials.burn
       ? (burnDepthFor(round) === 'deep'
@@ -294,6 +428,9 @@
     [].forEach.call($('deck-chips').querySelectorAll('[data-deck]'), function (btn) {
       btn.setAttribute('aria-pressed', dials.decks[btn.getAttribute('data-deck')]);
     });
+
+    var tp = $('rule-chips').querySelector('[data-talking-points]');
+    tp.setAttribute('aria-pressed', dials.talkingPoints);
 
     save('sa-dials', dials);
   }
@@ -580,18 +717,25 @@
     }, 1000);
   }
 
-  function showWheelQuestion(q) {
-    current = q;
-    if (!q) { $('wheel-card').hidden = true; return; }
-    var d = DEPTHS.filter(function (x) { return x.slug === q.d; })[0];
+  function showWheelQuestion(item) {
+    current = item;
+    if (!item) { $('wheel-card').hidden = true; return; }
+    var isTalkingPoint = !!item._tp;
+    $('wheel-card').classList.toggle('q-tp', isTalkingPoint);
+    var d = !isTalkingPoint && DEPTHS.filter(function (x) { return x.slug === item.d; })[0];
     var dep = $('wc-depth');
-    dep.textContent = d.label;
-    dep.setAttribute('data-d', q.d);
-    $('wc-text').textContent = q.q;
+    dep.textContent = isTalkingPoint ? 'AROUND TOWN THIS WEEK' : d.label;
+    dep.classList.toggle('q-tp-kicker', isTalkingPoint);
+    if (isTalkingPoint) dep.removeAttribute('data-d'); else dep.setAttribute('data-d', item.d);
+    $('wc-text').textContent = isTalkingPoint ? item.text : item.q;
+    var source = $('wc-source');
+    source.hidden = !isTalkingPoint || !item.url;
+    source.innerHTML = source.hidden ? '' : '<a class="q-tp-source" href="' + esc(item.url) +
+      '" target="_blank" rel="noopener">from ' + esc(item.sourceName || 'source') + ' ↗</a>';
     $('wheel-card').hidden = false;
     fitQuestion($('wc-text'));
-    track('sa-served', q.id, q.d);
-    startTimer();
+    if (isTalkingPoint) { track('sa-tp-served', 'tp', item.category); stopTimer(); }
+    else { track('sa-served', item.id, item.d); startTimer(); }
   }
 
   function spin(then) {
@@ -618,9 +762,9 @@
 
   function wheelTurn() {
     var live = pool();
-    var q = take(live, 1, current ? [current.id] : [])[0];
-    if (!q) return;
-    spin(function () { showWheelQuestion(q); });
+    var item = dealOne(live, current && !current._tp ? [current.id] : [], false);
+    if (!item) return;
+    spin(function () { showWheelQuestion(item); });
   }
 
   /* ---------------- wiring ---------------- */
@@ -752,6 +896,16 @@
       renderDials(); renderTrio();
     });
 
+    $('rule-chips').addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-talking-points]');
+      if (!btn) return;
+      dials.talkingPoints = !dials.talkingPoints;
+      drawCount = 0; lastWasTalkingPoint = false;
+      renderDials();
+      if (!dials.talkingPoints) { renderTrio(); return; }
+      loadTalkingPoints().then(function () { if (dials.talkingPoints) renderTrio(); });
+    });
+
     $('open-wheel').addEventListener('click', function () {
       wheelOn = true;
       $('wheel-panel').hidden = false;
@@ -796,9 +950,9 @@
     });
     $('next-btn').addEventListener('click', wheelTurn);
     $('skip-btn').addEventListener('click', function () {
-      if (current) track('sa-passed', current.id, current.d);
-      var q = take(pool(), 1, current ? [current.id] : [])[0];
-      if (q) showWheelQuestion(q);
+      if (current && !current._tp) track('sa-passed', current.id, current.d);
+      var item = dealOne(pool(), current && !current._tp ? [current.id] : [], false);
+      if (item) showWheelQuestion(item);
     });
 
     $('opt-timer').addEventListener('change', function () {
@@ -846,7 +1000,11 @@
         ? QUESTIONS.filter(function (x) { return x.id === want; })[0]
         : null;
 
-      if (q) openSingle(q);
+      if (q) {
+        if (dials.talkingPoints) loadTalkingPoints();
+        openSingle(q);
+      }
+      else if (dials.talkingPoints) loadTalkingPoints().then(renderTrio);
       else renderTrio();
       if (want === 'week') $('qotw').scrollIntoView({ block: 'start' });
     })
