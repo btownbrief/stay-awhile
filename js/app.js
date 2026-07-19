@@ -5,12 +5,12 @@
 
    Everything else is optional and out of the way. No setup screen, no names,
    nothing to agree to before you can read a question. The wheel is a link you
-   can choose to click; only then does it ask who's playing. Three rows of dials,
+   can choose to click; only then does it ask who's playing. Two rows of dials,
    not twenty. If someone wants the whole deck, they can have the whole deck.
 
    The pieces:
      THE TRIO   — three questions, one button. That's the game.
-     THE DIALS  — how deep, roughly what about, and one optional house rule.
+     THE DIALS  — how deep and roughly what about.
                   "The slow burn" is the fourth depth setting rather than a mode
                   of its own: it just takes the depth out of your hands and
                   walks you down as you play.
@@ -82,13 +82,14 @@
   /* ---------------- state ---------------- */
 
   var QUESTIONS = [];
+  var mode = store('sa-mode', 'classic');
+  if (mode !== 'catchup') mode = 'classic';
+  document.body.dataset.mode = mode;
   var savedDials = store('sa-dials', {}) || {};
   var dials = {
     depths: savedDials.depths || ['light', 'warm'],
     burn: !!savedDials.burn,
-    topics: savedDials.topics || null,
-    decks: Object.assign({ classic: true, ford: false }, savedDials.decks || {}),
-    talkingPoints: !!savedDials.talkingPoints
+    topics: savedDials.topics || null
   };
 
   var served = {};
@@ -98,8 +99,6 @@
   var TALKING_POINTS = [];
   var tpServed = {};
   var tpLoading = null;
-  var drawCount = 0;
-  var lastWasTalkingPoint = false;
 
   var players = store('sa-players', []);
   var wheelOn = false;
@@ -144,9 +143,7 @@
     var allowRoom = wheelOn && players.length >= 2;
 
     return QUESTIONS.filter(function (q) {
-      var deckMatches = (!q.deck && dials.decks.classic) ||
-                        (q.deck === 'ford' && dials.decks.ford);
-      if (!deckMatches) return false;
+      if (q.deck) return false;
       if (use.indexOf(q.d) === -1) return false;
       if (tags && !q.t.some(function (t) { return tags.indexOf(t) !== -1; })) return false;
       if (!allowHeavy && q.f.indexOf('heavy') !== -1) return false;
@@ -184,73 +181,17 @@
     setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 2600);
   }
 
-  function distillTalkingPoints(doc) {
-    var allowed = { news: true, food: true, roads: true, cityhall: true, events: true };
-    var cutoff = Date.now() - 7 * 86400000;
-    var seen = [];
-
-    return ((doc && doc.events) || []).filter(function (item) {
-      var at = new Date(item.ts).getTime();
-      return allowed[item.category] && item.headline && at >= cutoff && at <= Date.now();
-    }).sort(function (a, b) {
-      return (Number(b.priority) || 0) - (Number(a.priority) || 0) ||
-             new Date(b.ts).getTime() - new Date(a.ts).getTime();
-    }).reduce(function (points, item) {
-      var headline = String(item.headline).trim();
-      if (item.category === 'events') headline = headline.replace(/^New event:\s*/i, '');
-      headline = headline.replace(/\.+$/, '');
-
-      var normalized = headline.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().slice(0, 64);
-      if (!normalized || seen.some(function (key) {
-        return key.indexOf(normalized) === 0 || normalized.indexOf(key) === 0;
-      })) return points;
-      seen.push(normalized);
-
-      var text = item.category === 'roads'
-        ? 'Heads up if you drive — ' + headline + '. Anyone hit that yet?'
-        : item.category === 'food'
-          ? 'Food news: ' + headline + '. Have you been?'
-          : item.category === 'events'
-            ? 'This is happening — ' + headline + '. Anyone going?'
-            : 'Did you hear about this one — ' + headline + '?';
-
-      if (text.length <= 140 && points.length < 20) points.push({
-        _tp: true,
-        text: text,
-        url: item.url || null,
-        sourceName: item.sourceName || item.source || '',
-        category: item.category
-      });
-      return points;
-    }, []);
-  }
-
   function loadTalkingPoints() {
     if (tpLoading) return tpLoading;
-    var curated = fetch('data/talking-points.json')
+    tpLoading = fetch('data/talking-points.json')
       .then(function (r) { if (!r.ok) throw new Error('talking points → ' + r.status); return r.json(); })
       .then(function (doc) {
-        return (doc.points || []).filter(function (p) { return p && p.text; }).map(function (p) {
+        TALKING_POINTS = (doc.points || []).filter(function (p) { return p && p.text; }).map(function (p) {
           return { _tp: true, text: String(p.text), url: p.url || null,
                    sourceName: p.sourceName || '', category: p.category || 'curated' };
         });
       })
-      .catch(function () { return []; });
-    var fresh = fetch('https://guide.btownbrief.com/data/changes/changes.json')
-      .then(function (r) { if (!r.ok) throw new Error('changes → ' + r.status); return r.json(); })
-      .then(distillTalkingPoints)
-      .catch(function () { return []; });
-
-    tpLoading = Promise.all([curated, fresh])
-      .then(function (pools) { TALKING_POINTS = pools[0].concat(pools[1]); })
-      .then(function () {
-        if (!TALKING_POINTS.length) {
-          dials.talkingPoints = false;
-          save('sa-dials', dials);
-          renderDials();
-          toast('No fresh chatter right now');
-        }
-      });
+      .catch(function () { TALKING_POINTS = []; });
     return tpLoading;
   }
 
@@ -263,17 +204,8 @@
     return point;
   }
 
-  function dealOne(live, exclude, batchHasTalkingPoint) {
-    if (dials.talkingPoints) {
-      drawCount += 1;
-      if (drawCount % 3 === 0 && !lastWasTalkingPoint && !batchHasTalkingPoint) {
-        var point = takeTalkingPoint();
-        if (point) { lastWasTalkingPoint = true; return point; }
-      }
-    }
-    var q = take(live, 1, exclude)[0] || null;
-    lastWasTalkingPoint = false;
-    return q;
+  function dealOne(live, exclude) {
+    return mode === 'catchup' ? takeTalkingPoint() : (take(live, 1, exclude)[0] || null);
   }
 
   function talkingPointHtml(point) {
@@ -281,6 +213,46 @@
       '<p class="q-text">' + esc(point.text) + '</p>' +
       (point.url ? '<div class="q-foot"><a class="q-tp-source" href="' + esc(point.url) +
         '" target="_blank" rel="noopener">from ' + esc(point.sourceName || 'source') + ' ↗</a></div>' : '');
+  }
+
+  function renderMode() {
+    document.body.dataset.mode = mode;
+    $('mode-classic').setAttribute('aria-selected', mode === 'classic');
+    $('mode-catchup').setAttribute('aria-selected', mode === 'catchup');
+    $('mode-note').textContent = mode === 'catchup'
+      ? 'Around town — casual openers for catching up.'
+      : 'The deep deck.';
+    $('deal-btn').textContent = mode === 'catchup' ? 'Deal fresh chatter' : 'Three more';
+  }
+
+  function setMode(next, shouldTrack) {
+    mode = next;
+    save('sa-mode', mode);
+    renderMode();
+    if (shouldTrack) track('sa-mode', mode);
+
+    if (mode === 'classic') {
+      renderTrio();
+      return;
+    }
+
+    if (TALKING_POINTS.length) {
+      renderTrio();
+      return;
+    }
+    renderTrio();
+    loadTalkingPoints().then(function () {
+      if (mode !== 'catchup') return;
+      if (TALKING_POINTS.length) {
+        renderTrio();
+        return;
+      }
+      mode = 'classic';
+      save('sa-mode', mode);
+      renderMode();
+      renderTrio();
+      toast('No fresh chatter right now');
+    });
   }
 
   /* ---------------- the trio ---------------- */
@@ -365,7 +337,12 @@
 
   function renderTrio() {
     var live = pool();
-    if (!live.length) {
+    if (mode === 'catchup' && !TALKING_POINTS.length) {
+      $('trio').innerHTML = '';
+      $('deal-note').textContent = '';
+      return;
+    }
+    if (mode === 'classic' && !live.length) {
       $('trio').innerHTML = '<p class="trio-empty">Nothing matches. Turn a dial back on.</p>';
       $('deal-note').textContent = '';
       return;
@@ -373,15 +350,13 @@
 
     round += 1;
     var previous = trio.filter(function (item) { return !item._tp; }).map(function (q) { return q.id; });
-    var next = [], batchHasTalkingPoint = false;
-    for (var i = 0; i < Math.min(3, live.length); i++) {
+    var next = [];
+    var handSize = mode === 'catchup' ? 3 : Math.min(3, live.length);
+    for (var i = 0; i < handSize; i++) {
       var exclude = previous.concat(next.filter(function (item) { return !item._tp; })
         .map(function (q) { return q.id; }));
-      var item = dealOne(live, exclude, batchHasTalkingPoint);
-      if (item) {
-        next.push(item);
-        if (item._tp) batchHasTalkingPoint = true;
-      }
+      var item = dealOne(live, exclude);
+      if (item) next.push(item);
     }
     trio = next;
 
@@ -397,7 +372,7 @@
       else track('sa-served', item.id, item.d);
     });
 
-    $('deal-note').textContent = dials.burn
+    $('deal-note').textContent = mode === 'catchup' ? '' : dials.burn
       ? (burnDepthFor(round) === 'deep'
           ? 'Deep water. It doesn’t get harder than this.'
           : 'Getting deeper as you go.')
@@ -424,13 +399,6 @@
         return '<button class="chip" data-topic="' + b.slug + '" aria-pressed="' + isOn + '">' +
                esc(b.label) + '</button>';
       }).join('');
-
-    [].forEach.call($('deck-chips').querySelectorAll('[data-deck]'), function (btn) {
-      btn.setAttribute('aria-pressed', dials.decks[btn.getAttribute('data-deck')]);
-    });
-
-    var tp = $('rule-chips').querySelector('[data-talking-points]');
-    tp.setAttribute('aria-pressed', dials.talkingPoints);
 
     save('sa-dials', dials);
   }
@@ -633,11 +601,12 @@
   function renderAll(filter) {
     var f = (filter || '').trim().toLowerCase();
     var list = QUESTIONS.filter(function (q) {
-      return !f || q.q.toLowerCase().indexOf(f) !== -1;
+      return !q.deck && (!f || q.q.toLowerCase().indexOf(f) !== -1);
     });
+    var classicCount = QUESTIONS.filter(function (q) { return !q.deck; }).length;
     $('all-sub').textContent = f
-      ? list.length + ' of ' + QUESTIONS.length + ' match “' + filter + '”'
-      : 'All ' + QUESTIONS.length + ', every one of them. Tap any to answer it.';
+      ? list.length + ' of ' + classicCount + ' match “' + filter + '”'
+      : 'All ' + classicCount + ', every one of them. Tap any to answer it.';
     $('all-list').innerHTML = list.map(function (q) {
       return '<li><button class="all-q" data-open="' + q.id + '">' +
         '<span class="all-dot" data-d="' + q.d + '" aria-hidden="true"></span>' +
@@ -701,7 +670,7 @@
 
   function startTimer() {
     stopTimer();
-    if (!timerOn || !current) return;
+    if (!timerOn || !current || current._tp) return;
     var left = timerSecs, bar = $('timer-bar'), el = $('timer');
     el.hidden = false; el.classList.remove('up');
     bar.style.transition = 'none'; bar.style.width = '100%';
@@ -771,6 +740,13 @@
 
   function wire() {
     $('deal-btn').addEventListener('click', renderTrio);
+
+    document.querySelector('.mode-switch').addEventListener('click', function (e) {
+      var tab = e.target.closest('.mode-tab');
+      if (!tab) return;
+      var next = tab.id === 'mode-catchup' ? 'catchup' : 'classic';
+      if (next !== mode) setMode(next, true);
+    });
 
     // Cards, the week list, and the full deck all delegate to here.
     document.addEventListener('click', function (e) {
@@ -886,26 +862,6 @@
       renderDials(); renderTrio();
     });
 
-    $('deck-chips').addEventListener('click', function (e) {
-      var btn = e.target.closest('[data-deck]');
-      if (!btn) return;
-      var deck = btn.getAttribute('data-deck');
-      var other = deck === 'classic' ? 'ford' : 'classic';
-      if (dials.decks[deck] && !dials.decks[other]) return;
-      dials.decks[deck] = !dials.decks[deck];
-      renderDials(); renderTrio();
-    });
-
-    $('rule-chips').addEventListener('click', function (e) {
-      var btn = e.target.closest('[data-talking-points]');
-      if (!btn) return;
-      dials.talkingPoints = !dials.talkingPoints;
-      drawCount = 0; lastWasTalkingPoint = false;
-      renderDials();
-      if (!dials.talkingPoints) { renderTrio(); return; }
-      loadTalkingPoints().then(function () { if (dials.talkingPoints) renderTrio(); });
-    });
-
     $('open-wheel').addEventListener('click', function () {
       wheelOn = true;
       $('wheel-panel').hidden = false;
@@ -987,8 +943,9 @@
     .then(function (r) { return r.json(); })
     .then(function (doc) {
       QUESTIONS = doc.questions;
-      $('q-total').textContent = QUESTIONS.length;
-      $('all-count').textContent = QUESTIONS.length;
+      var classicCount = QUESTIONS.filter(function (q) { return !q.deck; }).length;
+      $('q-total').textContent = classicCount;
+      $('all-count').textContent = classicCount;
       $('timer-secs').disabled = true;
 
       renderDials();
@@ -1001,11 +958,10 @@
         : null;
 
       if (q) {
-        if (dials.talkingPoints) loadTalkingPoints();
+        renderMode();
         openSingle(q);
       }
-      else if (dials.talkingPoints) loadTalkingPoints().then(renderTrio);
-      else renderTrio();
+      else setMode(mode, false);
       if (want === 'week') $('qotw').scrollIntoView({ block: 'start' });
     })
     .catch(function () {

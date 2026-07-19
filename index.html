@@ -46,6 +46,14 @@
 
 <main class="wrap" id="table">
 
+  <div class="mode-control">
+    <div class="mode-switch" role="tablist" aria-label="Mode">
+      <button class="mode-tab" id="mode-classic" role="tab" aria-selected="true" type="button">🎡 Stay Awhile</button>
+      <button class="mode-tab" id="mode-catchup" role="tab" aria-selected="false" type="button">☕ Catch Up</button>
+    </div>
+    <p class="mode-note" id="mode-note">The deep deck.</p>
+  </div>
+
   <!-- ========================================================
        QUESTIONS OF THE WEEK — two, the same two for the whole
        town, Monday to Sunday. One for each edition of the Brief.
@@ -70,7 +78,7 @@
       <p class="deal-note" id="deal-note"></p>
     </div>
 
-    <!-- Three filters and one optional house rule. -->
+    <!-- Two filters for the classic deck. -->
     <div class="dials">
       <div class="dial">
         <span class="dial-label">How deep</span>
@@ -79,19 +87,6 @@
       <div class="dial">
         <span class="dial-label">About</span>
         <div class="chips" id="topic-chips" role="group" aria-label="What about"></div>
-      </div>
-      <div class="dial">
-        <span class="dial-label">Deck</span>
-        <div class="chips" id="deck-chips" role="group" aria-label="Deck">
-          <button class="chip chip-deck" data-deck="classic" aria-pressed="true">🎡 Classic</button>
-          <button class="chip chip-deck" data-deck="ford" aria-pressed="false">🚗 FORD</button>
-        </div>
-      </div>
-      <div class="dial">
-        <span class="dial-label">House rules</span>
-        <div class="chips" id="rule-chips" role="group" aria-label="House rules">
-          <button class="chip" data-talking-points="1" aria-pressed="false" type="button">🗞 Sprinkle in the news</button>
-        </div>
       </div>
     </div>
 
