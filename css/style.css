@@ -4,7 +4,7 @@
    photographs that dissolve into it, translucent glass on top.
    Photos are graded (never scrimmed) so white type stays readable.
 
-   The page is deliberately short. Three questions, one button, two
+   The page is deliberately short. Three questions, one button, three
    rows of dials. Everything else is a link you can choose to click.
 ============================================================ */
 
@@ -229,6 +229,7 @@ body {
 .chip-depth[aria-pressed="true"][data-d="light"] { background: rgba(91,200,245,.16);  border-color: var(--lake);  color: var(--lake); }
 .chip-depth[aria-pressed="true"][data-d="warm"]  { background: rgba(232,176,75,.16);  border-color: var(--gold);  color: var(--gold); }
 .chip-depth[aria-pressed="true"][data-d="deep"]  { background: rgba(255,107,53,.16);  border-color: var(--ember); color: var(--ember); }
+.chip-deck[aria-pressed="true"] { background: rgba(232,176,75,.16); border-color: var(--gold); color: var(--gold); }
 .chip-burn { margin-left: 8px; }
 .chip-burn[aria-pressed="true"] { background: rgba(255,107,53,.16); border-color: var(--ember); color: var(--ember); }
 
