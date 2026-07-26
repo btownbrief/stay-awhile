@@ -88,7 +88,7 @@
   },
   {
    "id": "q002",
-   "q": "What's the correct creemee order — and don't say vanilla.",
+   "q": "What's the correct creemee order?",
    "d": "light",
    "t": [
     "btown",
@@ -107,7 +107,7 @@
   },
   {
    "id": "q004",
-   "q": "What's the best sunset spot in town, and which one would you never post?",
+   "q": "Where's the best sunset in town — and is there a spot you keep to yourself?",
    "d": "warm",
    "t": [
     "btown"
@@ -125,7 +125,7 @@
   },
   {
    "id": "q006",
-   "q": "What's your actual winter strategy? Not the one you tell people.",
+   "q": "What's your actual winter strategy?",
    "d": "warm",
    "t": [
     "btown"
@@ -162,7 +162,7 @@
   },
   {
    "id": "q010",
-   "q": "Best place to eat in this town that isn't on Church Street.",
+   "q": "Where's the best place to eat in this town that isn't on Church Street?",
    "d": "light",
    "t": [
     "btown",
@@ -172,7 +172,7 @@
   },
   {
    "id": "q011",
-   "q": "Best breakfast in Chittenden County. This is a fight, not a question.",
+   "q": "Where's the best breakfast in Chittenden County?",
    "d": "light",
    "t": [
     "btown",
@@ -200,7 +200,7 @@
   },
   {
    "id": "q014",
-   "q": "Where's the worst pothole in the city? Be specific.",
+   "q": "Where's the worst pothole in the city right now?",
    "d": "light",
    "t": [
     "btown"
@@ -229,7 +229,7 @@
   },
   {
    "id": "q017",
-   "q": "Mud season, black fly season, or February — which one is genuinely worst?",
+   "q": "Mud season, black fly season, or February — which is worst?",
    "d": "light",
    "t": [
     "btown"
@@ -247,8 +247,8 @@
   },
   {
    "id": "q019",
-   "q": "One thing about Burlington you'd change tomorrow.",
-   "d": "deep",
+   "q": "What's one thing about Burlington you'd change tomorrow?",
+   "d": "warm",
    "t": [
     "btown",
     "opinions"
@@ -258,7 +258,7 @@
   {
    "id": "q020",
    "q": "Is Burlington getting better or worse?",
-   "d": "deep",
+   "d": "warm",
    "t": [
     "btown",
     "opinions"
@@ -267,7 +267,7 @@
   },
   {
    "id": "q021",
-   "q": "Will you still be here in ten years? Really?",
+   "q": "Will you still be here in ten years?",
    "d": "deep",
    "t": [
     "btown",
@@ -300,8 +300,8 @@
   },
   {
    "id": "q024",
-   "q": "Best show you've ever seen at the Flynn or Higher Ground.",
-   "d": "warm",
+   "q": "What's the best show you've ever seen at the Flynn or Higher Ground?",
+   "d": "light",
    "t": [
     "btown",
     "memory"
@@ -328,7 +328,7 @@
   },
   {
    "id": "q027",
-   "q": "What's the local secret you'd actually give a newcomer?",
+   "q": "What's the local secret you'd give a newcomer?",
    "d": "warm",
    "t": [
     "btown"
@@ -348,7 +348,7 @@
   },
   {
    "id": "q029",
-   "q": "Best free thing to do in Burlington.",
+   "q": "What's the best free thing to do in Burlington?",
    "d": "light",
    "t": [
     "btown"
@@ -366,7 +366,7 @@
   },
   {
    "id": "q031",
-   "q": "Most beautiful drive in this state.",
+   "q": "What's the most beautiful drive in this state?",
    "d": "light",
    "t": [
     "btown",
@@ -385,7 +385,7 @@
   },
   {
    "id": "q033",
-   "q": "Has a Vermont winter ever genuinely broken you?",
+   "q": "Has a Vermont winter ever gotten the better of you?",
    "d": "deep",
    "t": [
     "btown"
@@ -424,7 +424,7 @@
   },
   {
    "id": "q037",
-   "q": "What's the best thing anyone has built for this town that isn't a building?",
+   "q": "Who's doing something good for this town that not enough people know about?",
    "d": "warm",
    "t": [
     "btown"
@@ -481,7 +481,7 @@
   },
   {
    "id": "q043",
-   "q": "Who did you worship growing up?",
+   "q": "Whose poster was on your wall growing up?",
    "d": "warm",
    "t": [
     "childhood"
@@ -490,7 +490,7 @@
   },
   {
    "id": "q044",
-   "q": "Which teacher actually changed something for you?",
+   "q": "Which teacher changed something for you?",
    "d": "warm",
    "t": [
     "childhood"
@@ -555,32 +555,12 @@
    "f": []
   },
   {
-   "id": "q051",
-   "q": "Do you know what your name would have been if you'd been born the other sex?",
-   "d": "light",
-   "t": [
-    "childhood",
-    "family"
-   ],
-   "f": []
-  },
-  {
    "id": "q052",
    "q": "What food did you hate as a kid and love now?",
    "d": "light",
    "t": [
     "childhood",
     "food"
-   ],
-   "f": []
-  },
-  {
-   "id": "q053",
-   "q": "What can adults genuinely learn from children?",
-   "d": "warm",
-   "t": [
-    "childhood",
-    "opinions"
    ],
    "f": []
   },
@@ -595,42 +575,11 @@
    "f": []
   },
   {
-   "id": "q055",
-   "q": "Which person you've lost do you miss most?",
-   "d": "deep",
-   "t": [
-    "family",
-    "memory"
-   ],
-   "f": [
-    "heavy"
-   ]
-  },
-  {
    "id": "q056",
    "q": "Is there a talent that runs in your family?",
    "d": "warm",
    "t": [
     "family"
-   ],
-   "f": []
-  },
-  {
-   "id": "q057",
-   "q": "Who in your family has the best luck?",
-   "d": "light",
-   "t": [
-    "family"
-   ],
-   "f": []
-  },
-  {
-   "id": "q058",
-   "q": "Would you be a completely different person with different parents?",
-   "d": "deep",
-   "t": [
-    "family",
-    "life"
    ],
    "f": []
   },
@@ -654,7 +603,7 @@
   },
   {
    "id": "q061",
-   "q": "Do you know how your grandparents met? Tell it properly.",
+   "q": "Do you know how your grandparents met?",
    "d": "warm",
    "t": [
     "family",
@@ -666,7 +615,7 @@
   },
   {
    "id": "q062",
-   "q": "Did your parents try to steer you into a career? Did it take?",
+   "q": "Did your parents try to steer you into a career? Did it work?",
    "d": "warm",
    "t": [
     "family",
@@ -694,49 +643,10 @@
   },
   {
    "id": "q065",
-   "q": "When were you last properly proud of someone in your family?",
+   "q": "When were you last proud of someone in your family?",
    "d": "warm",
    "t": [
     "family"
-   ],
-   "f": []
-  },
-  {
-   "id": "q066",
-   "q": "Stranded on an island with one parent. Which, and be honest about why.",
-   "d": "deep",
-   "t": [
-    "family",
-    "whatif"
-   ],
-   "f": []
-  },
-  {
-   "id": "q067",
-   "q": "What would you actually do if your kid was being bullied?",
-   "d": "deep",
-   "t": [
-    "family"
-   ],
-   "f": []
-  },
-  {
-   "id": "q068",
-   "q": "Can good parenting be learned, or have you either got it or you haven't?",
-   "d": "warm",
-   "t": [
-    "family",
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q069",
-   "q": "Do people neglect their parents now in a way they didn't used to?",
-   "d": "warm",
-   "t": [
-    "family",
-    "opinions"
    ],
    "f": []
   },
@@ -751,7 +661,7 @@
   },
   {
    "id": "q071",
-   "q": "Have you ever had your heart properly broken?",
+   "q": "Have you ever had your heart broken?",
    "d": "deep",
    "t": [
     "love"
@@ -770,46 +680,8 @@
    "f": []
   },
   {
-   "id": "q073",
-   "q": "How long should two people be together before they marry?",
-   "d": "warm",
-   "t": [
-    "love"
-   ],
-   "f": []
-  },
-  {
-   "id": "q074",
-   "q": "Is twenty too young to get married?",
-   "d": "warm",
-   "t": [
-    "love",
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q075",
-   "q": "Why do so many marriages end?",
-   "d": "warm",
-   "t": [
-    "love",
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q076",
-   "q": "Do you believe in love at first sight? Has it happened to you?",
-   "d": "warm",
-   "t": [
-    "love"
-   ],
-   "f": []
-  },
-  {
    "id": "q077",
-   "q": "Name your first serious crush.",
+   "q": "Who was your first serious crush?",
    "d": "light",
    "t": [
     "love",
@@ -820,7 +692,7 @@
   {
    "id": "q078",
    "q": "Are you still in touch with your first love?",
-   "d": "deep",
+   "d": "warm",
    "t": [
     "love"
    ],
@@ -845,16 +717,6 @@
    "f": []
   },
   {
-   "id": "q081",
-   "q": "Do you find love, or does it find you?",
-   "d": "deep",
-   "t": [
-    "love",
-    "life"
-   ],
-   "f": []
-  },
-  {
    "id": "q082",
    "q": "Have you ever dated someone everyone around you disliked? Were they right?",
    "d": "deep",
@@ -862,18 +724,6 @@
     "love"
    ],
    "f": []
-  },
-  {
-   "id": "q083",
-   "q": "Have you ever said 'I love you' and not meant it?",
-   "d": "deep",
-   "t": [
-    "love",
-    "confess"
-   ],
-   "f": [
-    "heavy"
-   ]
   },
   {
    "id": "q084",
@@ -897,7 +747,7 @@
   },
   {
    "id": "q086",
-   "q": "Three words for your dating profile. Go.",
+   "q": "What would your three-word dating profile be?",
    "d": "light",
    "t": [
     "love"
@@ -917,7 +767,7 @@
   },
   {
    "id": "q088",
-   "q": "Describe your happiest memory with a friend.",
+   "q": "What's your happiest memory with a friend?",
    "d": "warm",
    "t": [
     "friends",
@@ -943,15 +793,6 @@
    "t": [
     "friends",
     "self"
-   ],
-   "f": []
-  },
-  {
-   "id": "q091",
-   "q": "Do you only really click with people who share your sense of humour?",
-   "d": "warm",
-   "t": [
-    "friends"
    ],
    "f": []
   },
@@ -1002,7 +843,7 @@
   },
   {
    "id": "q097",
-   "q": "When did you last make a genuinely new friend? How did it happen?",
+   "q": "When did you last make a new friend? How did it happen?",
    "d": "warm",
    "t": [
     "friends"
@@ -1042,7 +883,7 @@
   },
   {
    "id": "q101",
-   "q": "Would you actually enjoy working from home forever, or would it hollow you out?",
+   "q": "Could you work from home forever, or would it start to get to you?",
    "d": "light",
    "t": [
     "work",
@@ -1053,15 +894,6 @@
   {
    "id": "q102",
    "q": "What's the best hundred dollars you have ever spent?",
-   "d": "light",
-   "t": [
-    "work"
-   ],
-   "f": []
-  },
-  {
-   "id": "q103",
-   "q": "What's the best possible fifty dollars?",
    "d": "light",
    "t": [
     "work"
@@ -1084,25 +916,6 @@
    "d": "light",
    "t": [
     "work"
-   ],
-   "f": []
-  },
-  {
-   "id": "q106",
-   "q": "What's the one trait that actually makes successful people successful?",
-   "d": "warm",
-   "t": [
-    "work"
-   ],
-   "f": []
-  },
-  {
-   "id": "q107",
-   "q": "Which job is most underpaid?",
-   "d": "warm",
-   "t": [
-    "work",
-    "opinions"
    ],
    "f": []
   },
@@ -1147,7 +960,7 @@
   {
    "id": "q112",
    "q": "Would you let a robot do your job if you kept the salary?",
-   "d": "warm",
+   "d": "light",
    "t": [
     "work",
     "now",
@@ -1156,28 +969,8 @@
    "f": []
   },
   {
-   "id": "q113",
-   "q": "Do you get your money's worth out of your taxes?",
-   "d": "warm",
-   "t": [
-    "work",
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q114",
-   "q": "Would you learn an entire language if it doubled your salary?",
-   "d": "light",
-   "t": [
-    "work",
-    "whatif"
-   ],
-   "f": []
-  },
-  {
    "id": "q115",
-   "q": "What's the most delicious thing you have ever eaten?",
+   "q": "What's a meal you still think about?",
    "d": "light",
    "t": [
     "food",
@@ -1195,16 +988,6 @@
    "f": []
   },
   {
-   "id": "q117",
-   "q": "If calories didn't exist, what would you eat every single day?",
-   "d": "light",
-   "t": [
-    "food",
-    "whatif"
-   ],
-   "f": []
-  },
-  {
    "id": "q118",
    "q": "Best holiday candy: Valentine's, Easter, or Halloween?",
    "d": "light",
@@ -1215,16 +998,7 @@
   },
   {
    "id": "q119",
-   "q": "What's the most impressive thing you can cook?",
-   "d": "light",
-   "t": [
-    "food"
-   ],
-   "f": []
-  },
-  {
-   "id": "q120",
-   "q": "Do you check the expiry date before you buy — and do you obey it?",
+   "q": "What do you cook when you want to show off?",
    "d": "light",
    "t": [
     "food"
@@ -1271,36 +1045,8 @@
   },
   {
    "id": "q125",
-   "q": "Which city blew straight past your expectations?",
+   "q": "Which city surprised you most?",
    "d": "light",
-   "t": [
-    "travel"
-   ],
-   "f": []
-  },
-  {
-   "id": "q126",
-   "q": "If you could be anywhere on earth right now, where?",
-   "d": "light",
-   "t": [
-    "travel",
-    "whatif"
-   ],
-   "f": []
-  },
-  {
-   "id": "q127",
-   "q": "Most beautiful stretch of road you've ever driven.",
-   "d": "light",
-   "t": [
-    "travel"
-   ],
-   "f": []
-  },
-  {
-   "id": "q128",
-   "q": "One place everyone should see before they die.",
-   "d": "warm",
    "t": [
     "travel"
    ],
@@ -1328,7 +1074,7 @@
   },
   {
    "id": "q131",
-   "q": "What's the worst holiday you have ever had?",
+   "q": "What's the worst trip you've ever taken?",
    "d": "light",
    "t": [
     "travel",
@@ -1349,7 +1095,7 @@
   },
   {
    "id": "q133",
-   "q": "Tell us about a time you helped a stranger.",
+   "q": "When did a stranger come through for you?",
    "d": "warm",
    "t": [
     "memory",
@@ -1368,7 +1114,7 @@
   },
   {
    "id": "q135",
-   "q": "What's the longest you've ever queued for anything? Was it worth it?",
+   "q": "What's the longest you've ever waited in line? Was it worth it?",
    "d": "light",
    "t": [
     "memory"
@@ -1395,7 +1141,7 @@
   },
   {
    "id": "q138",
-   "q": "What's the best party you have ever been to?",
+   "q": "What's a party you still talk about?",
    "d": "warm",
    "t": [
     "memory"
@@ -1443,17 +1189,6 @@
    "f": []
   },
   {
-   "id": "q143",
-   "q": "Where were you when you heard about 9/11?",
-   "d": "deep",
-   "t": [
-    "memory"
-   ],
-   "f": [
-    "heavy"
-   ]
-  },
-  {
    "id": "q144",
    "q": "What's the longest you've gone without sleep, and what were you doing?",
    "d": "light",
@@ -1465,29 +1200,11 @@
   },
   {
    "id": "q145",
-   "q": "What was your first email address? Say it out loud.",
+   "q": "What was your first email address?",
    "d": "light",
    "t": [
     "memory",
     "now"
-   ],
-   "f": []
-  },
-  {
-   "id": "q146",
-   "q": "What's the point of all this?",
-   "d": "deep",
-   "t": [
-    "life"
-   ],
-   "f": []
-  },
-  {
-   "id": "q147",
-   "q": "What does 'a good life' actually mean to you?",
-   "d": "deep",
-   "t": [
-    "life"
    ],
    "f": []
   },
@@ -1514,7 +1231,7 @@
   },
   {
    "id": "q150",
-   "q": "When people reach the end, what do you think they wish they'd done differently?",
+   "q": "What would you regret never doing?",
    "d": "deep",
    "t": [
     "life"
@@ -1534,7 +1251,7 @@
   },
   {
    "id": "q152",
-   "q": "Is there anything you would genuinely die for?",
+   "q": "Is there anything you would die for?",
    "d": "deep",
    "t": [
     "life"
@@ -1550,25 +1267,6 @@
    "t": [
     "life",
     "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q154",
-   "q": "Which is stronger — love or hate?",
-   "d": "deep",
-   "t": [
-    "life",
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q155",
-   "q": "What actually gets people out of bed: money or love?",
-   "d": "warm",
-   "t": [
-    "life"
    ],
    "f": []
   },
@@ -1594,31 +1292,12 @@
    "f": []
   },
   {
-   "id": "q158",
-   "q": "What kind of person do you admire most?",
-   "d": "warm",
-   "t": [
-    "life"
-   ],
-   "f": []
-  },
-  {
    "id": "q159",
-   "q": "Outside your family — who has been kindest to you?",
+   "q": "Outside your family, whose kindness do you still remember?",
    "d": "deep",
    "t": [
     "life",
     "friends"
-   ],
-   "f": []
-  },
-  {
-   "id": "q160",
-   "q": "They say your happiness settles back to the same level no matter what happens to you. True?",
-   "d": "deep",
-   "t": [
-    "life",
-    "opinions"
    ],
    "f": []
   },
@@ -1633,15 +1312,6 @@
    "f": [
     "heavy"
    ]
-  },
-  {
-   "id": "q162",
-   "q": "Are you an organ donor? Why, or why not?",
-   "d": "warm",
-   "t": [
-    "life"
-   ],
-   "f": []
   },
   {
    "id": "q163",
@@ -1663,15 +1333,6 @@
    "f": []
   },
   {
-   "id": "q165",
-   "q": "Name the two things a person actually needs to be happy.",
-   "d": "deep",
-   "t": [
-    "life"
-   ],
-   "f": []
-  },
-  {
    "id": "q166",
    "q": "When did you last go out of your way to thank someone?",
    "d": "warm",
@@ -1682,7 +1343,7 @@
   },
   {
    "id": "q167",
-   "q": "Is there enough adventure in your life right now? Be honest.",
+   "q": "Is there enough adventure in your life right now?",
    "d": "deep",
    "t": [
     "life",
@@ -1744,7 +1405,7 @@
   },
   {
    "id": "q173",
-   "q": "One piece of advice for the year ahead, drawn from what you actually learned.",
+   "q": "What did this past year teach you?",
    "d": "warm",
    "t": [
     "life"
@@ -1754,7 +1415,7 @@
   {
    "id": "q174",
    "q": "Do you think you'd have been happier born fifty years earlier?",
-   "d": "deep",
+   "d": "warm",
    "t": [
     "life",
     "now"
@@ -1763,7 +1424,7 @@
   },
   {
    "id": "q175",
-   "q": "Best television show ever made. Defend it.",
+   "q": "What's the best television show ever made?",
    "d": "light",
    "t": [
     "opinions"
@@ -1789,80 +1450,6 @@
    "f": []
   },
   {
-   "id": "q178",
-   "q": "Do violent games and films actually make people violent?",
-   "d": "warm",
-   "t": [
-    "opinions",
-    "now"
-   ],
-   "f": []
-  },
-  {
-   "id": "q179",
-   "q": "What's the smartest animal?",
-   "d": "light",
-   "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q180",
-   "q": "Cats or dogs — which is genuinely smarter?",
-   "d": "light",
-   "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q181",
-   "q": "Best animal at the zoo.",
-   "d": "light",
-   "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q182",
-   "q": "Paper or screen?",
-   "d": "light",
-   "t": [
-    "opinions",
-    "now"
-   ],
-   "f": []
-  },
-  {
-   "id": "q183",
-   "q": "What does the world need more of?",
-   "d": "warm",
-   "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q184",
-   "q": "Which country is genuinely the most advanced?",
-   "d": "light",
-   "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q185",
-   "q": "Would there be fewer wars if everyone spoke one language?",
-   "d": "warm",
-   "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
    "id": "q186",
    "q": "Are people basically kind, or basically selfish?",
    "d": "deep",
@@ -1873,18 +1460,9 @@
    "f": []
   },
   {
-   "id": "q187",
-   "q": "What's the single most important thing ever invented?",
-   "d": "warm",
-   "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
    "id": "q188",
-   "q": "Is it ever alright to leave nothing for bad service?",
-   "d": "warm",
+   "q": "Is it ever okay to leave no tip at all?",
+   "d": "light",
    "t": [
     "opinions"
    ],
@@ -1901,155 +1479,26 @@
    "f": []
   },
   {
-   "id": "q190",
-   "q": "Should voting be mandatory?",
+   "id": "q196",
+   "q": "What do people always get wrong about you at first glance?",
    "d": "warm",
    "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q191",
-   "q": "Should parents raise children in a religion, or let them find their own?",
-   "d": "warm",
-   "t": [
-    "opinions",
-    "family"
-   ],
-   "f": []
-  },
-  {
-   "id": "q192",
-   "q": "Is there anything good at all about being locked up?",
-   "d": "warm",
-   "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q193",
-   "q": "Can people genuinely be rehabilitated in prison?",
-   "d": "deep",
-   "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q194",
-   "q": "Should advertising to children be banned?",
-   "d": "warm",
-   "t": [
-    "opinions",
-    "family"
-   ],
-   "f": []
-  },
-  {
-   "id": "q195",
-   "q": "Is being sensitive a strength or a weakness?",
-   "d": "warm",
-   "t": [
-    "opinions",
     "self"
    ],
    "f": []
   },
   {
-   "id": "q196",
-   "q": "How much can you really tell about someone by looking at them?",
-   "d": "warm",
-   "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
    "id": "q197",
-   "q": "Do tattoos change what you think of a person? Be honest.",
+   "q": "What's the story behind your tattoo — or the one you almost got?",
    "d": "warm",
    "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q198",
-   "q": "What actually counts as intelligence?",
-   "d": "deep",
-   "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q199",
-   "q": "Do genius and madness go together?",
-   "d": "warm",
-   "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q200",
-   "q": "Is anything genuinely off-limits for a joke?",
-   "d": "deep",
-   "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q201",
-   "q": "Who's got it easier — children or adults?",
-   "d": "warm",
-   "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q202",
-   "q": "Can a palm reader tell you anything real?",
-   "d": "light",
-   "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q203",
-   "q": "School uniforms: good idea or bad?",
-   "d": "light",
-   "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q204",
-   "q": "White walls, colour, or wallpaper?",
-   "d": "light",
-   "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q205",
-   "q": "Which room in a house matters most?",
-   "d": "light",
-   "t": [
-    "opinions"
+    "self"
    ],
    "f": []
   },
   {
    "id": "q206",
-   "q": "Do you buy secondhand? Where's your line?",
+   "q": "What's the best secondhand thing you own?",
    "d": "light",
    "t": [
     "opinions"
@@ -2060,25 +1509,6 @@
    "id": "q207",
    "q": "What's the worst sound in the world?",
    "d": "light",
-   "t": [
-    "opinions"
-   ],
-   "f": []
-  },
-  {
-   "id": "q208",
-   "q": "What did school teach you that you have never once used?",
-   "d": "light",
-   "t": [
-    "opinions",
-    "childhood"
-   ],
-   "f": []
-  },
-  {
-   "id": "q209",
-   "q": "One thing your country gets right, one thing it gets badly wrong.",
-   "d": "warm",
    "t": [
     "opinions"
    ],
@@ -2113,18 +1543,8 @@
    "f": []
   },
   {
-   "id": "q213",
-   "q": "Why are so many people living alone now?",
-   "d": "warm",
-   "t": [
-    "opinions",
-    "now"
-   ],
-   "f": []
-  },
-  {
    "id": "q214",
-   "q": "Be honest: is the time you spend on your phone time well spent?",
+   "q": "Is the time you spend on your phone time well spent?",
    "d": "warm",
    "t": [
     "now",
@@ -2133,18 +1553,8 @@
    "f": []
   },
   {
-   "id": "q215",
-   "q": "Has the internet made us more social, or less?",
-   "d": "warm",
-   "t": [
-    "now",
-    "opinions"
-   ],
-   "f": []
-  },
-  {
    "id": "q216",
-   "q": "Have you ever quietly declined someone's friend request? Who, and why?",
+   "q": "Have you ever quietly unfollowed or muted a friend? What did it?",
    "d": "light",
    "t": [
     "now",
@@ -2163,7 +1573,7 @@
   },
   {
    "id": "q218",
-   "q": "What's your screen time this week? Read the number out.",
+   "q": "What's your screen time this week? Everyone guesses before you look.",
    "d": "light",
    "t": [
     "now"
@@ -2175,7 +1585,7 @@
   {
    "id": "q219",
    "q": "What's the most embarrassing thing in your search history?",
-   "d": "light",
+   "d": "warm",
    "t": [
     "now",
     "confess"
@@ -2184,7 +1594,7 @@
   },
   {
    "id": "q220",
-   "q": "Have you ever used AI to write something personal — a message, a card, a eulogy?",
+   "q": "Have you ever used AI to write something personal — a message, a card, a toast?",
    "d": "warm",
    "t": [
     "now",
@@ -2194,7 +1604,7 @@
   },
   {
    "id": "q221",
-   "q": "Do you still trust anything you see online?",
+   "q": "What's the last thing you saw online that you believed — and then found out was fake?",
    "d": "warm",
    "t": [
     "now",
@@ -2203,21 +1613,9 @@
    "f": []
   },
   {
-   "id": "q222",
-   "q": "What did lockdown teach you about yourself that you'd rather not know?",
-   "d": "deep",
-   "t": [
-    "now",
-    "self"
-   ],
-   "f": [
-    "heavy"
-   ]
-  },
-  {
    "id": "q223",
    "q": "Would you give up your smartphone for a year for fifty thousand dollars?",
-   "d": "warm",
+   "d": "light",
    "t": [
     "now",
     "whatif"
@@ -2254,7 +1652,7 @@
   {
    "id": "q227",
    "q": "Would you rather everyone could read your texts, or your search history?",
-   "d": "warm",
+   "d": "light",
    "t": [
     "now",
     "whatif"
@@ -2263,8 +1661,8 @@
   },
   {
    "id": "q228",
-   "q": "Do you post your life online? Why — honestly?",
-   "d": "deep",
+   "q": "What was your last post — and why that one?",
+   "d": "warm",
    "t": [
     "now",
     "self"
@@ -2304,7 +1702,7 @@
   {
    "id": "q232",
    "q": "Someone from the year 3000 watches one day of your life. What horrifies them?",
-   "d": "warm",
+   "d": "light",
    "t": [
     "now",
     "whatif"
@@ -2332,15 +1730,6 @@
    "f": []
   },
   {
-   "id": "q235",
-   "q": "You play the lead in any film ever made. Which?",
-   "d": "light",
-   "t": [
-    "whatif"
-   ],
-   "f": []
-  },
-  {
    "id": "q236",
    "q": "If you could watch a recording of your dreams, would you?",
    "d": "light",
@@ -2361,7 +1750,7 @@
   {
    "id": "q238",
    "q": "You get to pass one law that everybody must follow. What is it?",
-   "d": "warm",
+   "d": "light",
    "t": [
     "whatif",
     "opinions"
@@ -2379,35 +1768,8 @@
    "f": []
   },
   {
-   "id": "q240",
-   "q": "Sit forever, or stand forever?",
-   "d": "light",
-   "t": [
-    "whatif"
-   ],
-   "f": []
-  },
-  {
-   "id": "q241",
-   "q": "Be any famous person for a single day. Who?",
-   "d": "light",
-   "t": [
-    "whatif"
-   ],
-   "f": []
-  },
-  {
    "id": "q242",
    "q": "Would you enjoy dinner with your own clone, or would you hate them?",
-   "d": "light",
-   "t": [
-    "whatif"
-   ],
-   "f": []
-  },
-  {
-   "id": "q243",
-   "q": "Someone hands you the keys to any car in the world. Which?",
    "d": "light",
    "t": [
     "whatif"
@@ -2426,7 +1788,7 @@
   },
   {
    "id": "q245",
-   "q": "Describe your ordinary Tuesday as a billionaire.",
+   "q": "What does your ordinary Tuesday as a billionaire look like?",
    "d": "light",
    "t": [
     "whatif",
@@ -2445,8 +1807,8 @@
   },
   {
    "id": "q247",
-   "q": "You get the whole world's attention for thirty seconds. Go.",
-   "d": "deep",
+   "q": "You have the whole world's attention for thirty seconds. What do you say?",
+   "d": "warm",
    "t": [
     "whatif"
    ],
@@ -2454,7 +1816,7 @@
   },
   {
    "id": "q248",
-   "q": "You come back as an animal. Which one, and don't say lion.",
+   "q": "You come back as an animal. Which one?",
    "d": "light",
    "t": [
     "whatif"
@@ -2481,15 +1843,6 @@
    "f": []
   },
   {
-   "id": "q251",
-   "q": "Could you genuinely become friends with someone famous?",
-   "d": "light",
-   "t": [
-    "whatif"
-   ],
-   "f": []
-  },
-  {
    "id": "q252",
    "q": "If you could change your age, would you go younger, older, or stay exactly here?",
    "d": "warm",
@@ -2509,20 +1862,8 @@
    "f": []
   },
   {
-   "id": "q254",
-   "q": "When did you last feel like a genuinely bad person?",
-   "d": "deep",
-   "t": [
-    "confess",
-    "self"
-   ],
-   "f": [
-    "heavy"
-   ]
-  },
-  {
    "id": "q255",
-   "q": "Have you ever fallen asleep somewhere you really should not have?",
+   "q": "Have you ever fallen asleep somewhere you shouldn't have?",
    "d": "light",
    "t": [
     "confess"
@@ -2561,7 +1902,7 @@
   {
    "id": "q259",
    "q": "What's a lie you tell all the time?",
-   "d": "warm",
+   "d": "deep",
    "t": [
     "confess",
     "self"
@@ -2580,7 +1921,7 @@
   },
   {
    "id": "q261",
-   "q": "What's the most money you've spent in one go on something completely stupid?",
+   "q": "What's the most money you've ever spent on something completely unnecessary?",
    "d": "light",
    "t": [
     "confess",
@@ -2608,7 +1949,7 @@
   },
   {
    "id": "q264",
-   "q": "Is your handwriting any good? Prove it.",
+   "q": "Is your handwriting any good, or is it a ransom note?",
    "d": "light",
    "t": [
     "self"
@@ -2618,41 +1959,12 @@
    ]
   },
   {
-   "id": "q265",
-   "q": "Finish the sentence: I have never been angrier than the day…",
-   "d": "deep",
-   "t": [
-    "self"
-   ],
-   "f": [
-    "heavy"
-   ]
-  },
-  {
    "id": "q266",
    "q": "What's your worst run-in with an animal?",
-   "d": "warm",
+   "d": "light",
    "t": [
     "self",
     "memory"
-   ],
-   "f": []
-  },
-  {
-   "id": "q267",
-   "q": "What's your favourite part of your own body?",
-   "d": "warm",
-   "t": [
-    "self"
-   ],
-   "f": []
-  },
-  {
-   "id": "q268",
-   "q": "If you could change one thing about your body, what?",
-   "d": "warm",
-   "t": [
-    "self"
    ],
    "f": []
   },
@@ -2667,7 +1979,7 @@
   },
   {
    "id": "q270",
-   "q": "What genuinely makes you angry?",
+   "q": "What reliably makes you angry?",
    "d": "warm",
    "t": [
     "self"
@@ -2676,16 +1988,7 @@
   },
   {
    "id": "q271",
-   "q": "Are you good with kids? Honestly?",
-   "d": "light",
-   "t": [
-    "self"
-   ],
-   "f": []
-  },
-  {
-   "id": "q272",
-   "q": "Side, stomach, or back?",
+   "q": "Are you actually good with kids?",
    "d": "light",
    "t": [
     "self"
@@ -2712,7 +2015,7 @@
   },
   {
    "id": "q275",
-   "q": "Do you have a lucky object? Admit it.",
+   "q": "Do you have a lucky object? What's the story?",
    "d": "light",
    "t": [
     "self"
@@ -2730,7 +2033,7 @@
   },
   {
    "id": "q277",
-   "q": "When did you last cry?",
+   "q": "When did you last tear up — happy or otherwise?",
    "d": "deep",
    "t": [
     "self"
@@ -2742,7 +2045,7 @@
   {
    "id": "q278",
    "q": "What compliment have you never forgotten?",
-   "d": "deep",
+   "d": "warm",
    "t": [
     "self",
     "memory"
@@ -2786,18 +2089,9 @@
    "f": []
   },
   {
-   "id": "q283",
-   "q": "What's the one thing about your life somebody might envy?",
-   "d": "warm",
-   "t": [
-    "self"
-   ],
-   "f": []
-  },
-  {
    "id": "q284",
-   "q": "When were you last genuinely proud of yourself?",
-   "d": "deep",
+   "q": "When were you last proud of yourself?",
+   "d": "warm",
    "t": [
     "self"
    ],
@@ -2832,15 +2126,6 @@
    "f": []
   },
   {
-   "id": "q288",
-   "q": "What are you allergic to?",
-   "d": "light",
-   "t": [
-    "self"
-   ],
-   "f": []
-  },
-  {
    "id": "q289",
    "q": "What's the last risk you took?",
    "d": "warm",
@@ -2859,17 +2144,6 @@
    "f": []
   },
   {
-   "id": "q291",
-   "q": "What are you still angry about?",
-   "d": "deep",
-   "t": [
-    "self"
-   ],
-   "f": [
-    "heavy"
-   ]
-  },
-  {
    "id": "q292",
    "q": "What's the last thing you made with your hands?",
    "d": "light",
@@ -2880,7 +2154,7 @@
   },
   {
    "id": "q293",
-   "q": "Do you know your neighbours' names? All of them?",
+   "q": "Do you know your neighbors' names? All of them?",
    "d": "light",
    "t": [
     "self"
@@ -2921,7 +2195,7 @@
   },
   {
    "id": "q297",
-   "q": "Name something the person on your left is genuinely good at.",
+   "q": "What's something the person on your left is quietly great at?",
    "d": "warm",
    "t": [
     "friends"
@@ -2954,18 +2228,7 @@
   },
   {
    "id": "q300",
-   "q": "What word do you overuse? Ask the room — they know.",
-   "d": "light",
-   "t": [
-    "self"
-   ],
-   "f": [
-    "room"
-   ]
-  },
-  {
-   "id": "q301",
-   "q": "Do an impression. Right now. Any impression.",
+   "q": "What word do you overuse?",
    "d": "light",
    "t": [
     "self"
@@ -2988,7 +2251,7 @@
   {
    "id": "q303",
    "q": "Are you cautious or a risk-taker — and would this table agree?",
-   "d": "warm",
+   "d": "light",
    "t": [
     "self"
    ],
@@ -3053,7 +2316,7 @@
   },
   {
    "id": "q309",
-   "q": "Who's the last person you texted, and what did it say? Show the room.",
+   "q": "Who's the last person you texted — and would you read it out loud?",
    "d": "light",
    "t": [
     "now"
@@ -3085,45 +2348,816 @@
     "heavy"
    ]
   },
-  {"id":"q401","q":"Who in your family are you most like — and would they agree?","d":"warm","t":["family","self"],"f":[],"deck":"ford"},
-  {"id":"q402","q":"What's a dinner-table rule from your childhood you still follow?","d":"light","t":["family","childhood"],"f":[],"deck":"ford"},
-  {"id":"q403","q":"What did your family do every summer, no matter what?","d":"light","t":["family","memory"],"f":[],"deck":"ford"},
-  {"id":"q404","q":"Who taught you to cook the one thing you actually make?","d":"light","t":["family","food"],"f":[],"deck":"ford"},
-  {"id":"q405","q":"What's a phrase your parents said that now comes out of your mouth?","d":"warm","t":["family","self"],"f":[],"deck":"ford"},
-  {"id":"q406","q":"Who's the best storyteller in your family? What's their go-to story?","d":"light","t":["family","memory"],"f":[],"deck":"ford"},
-  {"id":"q407","q":"What's a family tradition you'd fight to keep alive?","d":"warm","t":["family"],"f":[],"deck":"ford"},
-  {"id":"q408","q":"What did you love doing with a grandparent?","d":"warm","t":["family","memory"],"f":[],"deck":"ford"},
-  {"id":"q409","q":"What's the funniest thing a kid in your life has said lately?","d":"light","t":["family","now"],"f":[],"deck":"ford"},
-  {"id":"q410","q":"Who in your family would survive longest in a Vermont winter with no power?","d":"light","t":["family","btown","whatif"],"f":[],"deck":"ford"},
-  {"id":"q411","q":"What did you want to be at age eight?","d":"light","t":["work","childhood"],"f":[],"deck":"ford"},
-  {"id":"q412","q":"What's the best job you ever had — not the best-sounding one?","d":"warm","t":["work","memory"],"f":[],"deck":"ford"},
-  {"id":"q413","q":"What's something about your work most people get wrong?","d":"light","t":["work","opinions"],"f":[],"deck":"ford"},
-  {"id":"q414","q":"What was your first paycheck spent on?","d":"light","t":["work","memory"],"f":[],"deck":"ford"},
-  {"id":"q415","q":"Who's the best boss or teacher you've ever had, and what made them good?","d":"warm","t":["work","memory"],"f":[],"deck":"ford"},
-  {"id":"q416","q":"What's a small work win you never got to brag about? Brag now.","d":"light","t":["work","confess"],"f":[],"deck":"ford"},
-  {"id":"q417","q":"If money were handled, would you keep doing what you do?","d":"warm","t":["work","life"],"f":[],"deck":"ford"},
-  {"id":"q418","q":"What's the weirdest task you've ever been paid for?","d":"light","t":["work","memory"],"f":[],"deck":"ford"},
-  {"id":"q419","q":"What skill from an old job do you still use in real life?","d":"light","t":["work","self"],"f":[],"deck":"ford"},
-  {"id":"q420","q":"What job could you absolutely never do?","d":"light","t":["work","opinions"],"f":[],"deck":"ford"},
-  {"id":"q421","q":"What's your perfect Saturday in Burlington, hour by hour?","d":"light","t":["btown","now"],"f":[],"deck":"ford"},
-  {"id":"q422","q":"What hobby did you drop that you keep meaning to pick back up?","d":"warm","t":["self","now"],"f":[],"deck":"ford"},
-  {"id":"q423","q":"What's the best live show you've ever seen?","d":"light","t":["memory"],"f":[],"deck":"ford"},
-  {"id":"q424","q":"Swim, hike, or hammock — what's your lake day?","d":"light","t":["btown","opinions"],"f":[],"deck":"ford"},
-  {"id":"q425","q":"What's something you're weirdly good at that never comes up?","d":"light","t":["self","confess"],"f":[],"deck":"ford"},
-  {"id":"q426","q":"What do you do when you have the house to yourself?","d":"light","t":["self","confess"],"f":[],"deck":"ford"},
-  {"id":"q427","q":"What's the last thing you did for the first time?","d":"light","t":["now","self"],"f":[],"deck":"ford"},
-  {"id":"q428","q":"Board games: ruthless, cooperative, or \"I'll just watch\"?","d":"light","t":["opinions","self"],"f":[],"deck":"ford"},
-  {"id":"q429","q":"What's a place within an hour of here everyone should go once?","d":"light","t":["btown","travel","opinions"],"f":[],"deck":"ford"},
-  {"id":"q430","q":"What did you play as a kid that you'd still play right now?","d":"light","t":["childhood","memory"],"f":[],"deck":"ford"},
-  {"id":"q431","q":"What's on your list for the next five years — the real list?","d":"warm","t":["life","self"],"f":[],"deck":"ford"},
-  {"id":"q432","q":"If you could take a year off, what would you do with it?","d":"warm","t":["whatif","life"],"f":[],"deck":"ford"},
-  {"id":"q433","q":"What's a dream you gave up on that maybe you shouldn't have?","d":"deep","t":["life","confess"],"f":[],"deck":"ford"},
-  {"id":"q434","q":"What would you build in Burlington if zoning and money didn't exist?","d":"light","t":["btown","whatif"],"f":[],"deck":"ford"},
-  {"id":"q435","q":"What's the trip you keep almost booking?","d":"light","t":["travel","now"],"f":[],"deck":"ford"},
-  {"id":"q436","q":"What do you hope people say about you when you're not in the room?","d":"deep","t":["self","life"],"f":[],"deck":"ford"},
-  {"id":"q437","q":"If you could master one skill overnight, what would it be?","d":"light","t":["whatif","self"],"f":[],"deck":"ford"},
-  {"id":"q438","q":"What would your perfect ordinary Tuesday look like in ten years?","d":"warm","t":["life","whatif"],"f":[],"deck":"ford"},
-  {"id":"q439","q":"What's something you want to make with your own hands someday?","d":"warm","t":["life","self"],"f":[],"deck":"ford"},
-  {"id":"q440","q":"What are you quietly working up the courage to do?","d":"deep","t":["confess","life"],"f":[],"deck":"ford"}
+  {
+   "id": "q312",
+   "q": "What was your first car — and what happened to it?",
+   "d": "light",
+   "t": [
+    "memory"
+   ],
+   "f": []
+  },
+  {
+   "id": "q313",
+   "q": "What's been in your fridge door for over a year?",
+   "d": "light",
+   "t": [
+    "food",
+    "confess"
+   ],
+   "f": []
+  },
+  {
+   "id": "q314",
+   "q": "When did you last honk at someone — and did they deserve it?",
+   "d": "light",
+   "t": [
+    "confess"
+   ],
+   "f": []
+  },
+  {
+   "id": "q315",
+   "q": "What's the farthest you've ever driven for a meal?",
+   "d": "light",
+   "t": [
+    "food",
+    "travel"
+   ],
+   "f": []
+  },
+  {
+   "id": "q316",
+   "q": "What's in your car's center console right now?",
+   "d": "light",
+   "t": [
+    "confess"
+   ],
+   "f": []
+  },
+  {
+   "id": "q317",
+   "q": "What's the last thing you borrowed and never gave back?",
+   "d": "light",
+   "t": [
+    "confess"
+   ],
+   "f": []
+  },
+  {
+   "id": "q318",
+   "q": "Who has the best porch you've ever sat on?",
+   "d": "light",
+   "t": [
+    "btown",
+    "friends"
+   ],
+   "f": []
+  },
+  {
+   "id": "q319",
+   "q": "What's the best smell in a Vermont year?",
+   "d": "light",
+   "t": [
+    "btown"
+   ],
+   "f": []
+  },
+  {
+   "id": "q320",
+   "q": "What's the most Vermont thing in your house?",
+   "d": "light",
+   "t": [
+    "btown"
+   ],
+   "f": []
+  },
+  {
+   "id": "q321",
+   "q": "Running jump, slow wade, or not at all — how do you get in the lake?",
+   "d": "light",
+   "t": [
+    "btown"
+   ],
+   "f": []
+  },
+  {
+   "id": "q322",
+   "q": "What's the last thing you fixed instead of replaced?",
+   "d": "light",
+   "t": [
+    "self"
+   ],
+   "f": []
+  },
+  {
+   "id": "q323",
+   "q": "Where's the most unexpected place you've run into a fellow Vermonter?",
+   "d": "light",
+   "t": [
+    "btown",
+    "travel"
+   ],
+   "f": []
+  },
+  {
+   "id": "q324",
+   "q": "What game are you unbeatable at?",
+   "d": "light",
+   "t": [
+    "self"
+   ],
+   "f": []
+  },
+  {
+   "id": "q325",
+   "q": "Which two people at this table should start a business together — and what business?",
+   "d": "light",
+   "t": [
+    "friends"
+   ],
+   "f": [
+    "room"
+   ]
+  },
+  {
+   "id": "q326",
+   "q": "Who in town knows your order without asking?",
+   "d": "light",
+   "t": [
+    "btown",
+    "food"
+   ],
+   "f": []
+  },
+  {
+   "id": "q327",
+   "q": "What's the oldest thing you own that you still use?",
+   "d": "light",
+   "t": [
+    "self",
+    "memory"
+   ],
+   "f": []
+  },
+  {
+   "id": "q328",
+   "q": "What family recipe disappears if somebody doesn't learn it soon?",
+   "d": "warm",
+   "t": [
+    "family",
+    "food"
+   ],
+   "f": []
+  },
+  {
+   "id": "q329",
+   "q": "What do you do with the first real day of spring?",
+   "d": "light",
+   "t": [
+    "btown",
+    "self"
+   ],
+   "f": []
+  },
+  {
+   "id": "q330",
+   "q": "What's the hardest you've ever laughed — and where were you?",
+   "d": "warm",
+   "t": [
+    "memory"
+   ],
+   "f": []
+  },
+  {
+   "id": "q331",
+   "q": "What's your best brush with fame?",
+   "d": "warm",
+   "t": [
+    "memory"
+   ],
+   "f": []
+  },
+  {
+   "id": "q332",
+   "q": "What's the best thing you've ever found — on the ground, at a yard sale, in a wall?",
+   "d": "warm",
+   "t": [
+    "memory"
+   ],
+   "f": []
+  },
+  {
+   "id": "q333",
+   "q": "Who taught you to drive — and how did that go?",
+   "d": "warm",
+   "t": [
+    "memory",
+    "family"
+   ],
+   "f": []
+  },
+  {
+   "id": "q334",
+   "q": "What's the best advice you ever ignored?",
+   "d": "warm",
+   "t": [
+    "life"
+   ],
+   "f": []
+  },
+  {
+   "id": "q335",
+   "q": "What's a rule you have for yourself that nobody else knows about?",
+   "d": "warm",
+   "t": [
+    "self"
+   ],
+   "f": []
+  },
+  {
+   "id": "q336",
+   "q": "When did weather wreck the plan — and what happened instead?",
+   "d": "warm",
+   "t": [
+    "memory",
+    "btown"
+   ],
+   "f": []
+  },
+  {
+   "id": "q337",
+   "q": "What's a tradition you invented yourself?",
+   "d": "warm",
+   "t": [
+    "self",
+    "family"
+   ],
+   "f": []
+  },
+  {
+   "id": "q338",
+   "q": "What's a small ritual you'd never skip?",
+   "d": "warm",
+   "t": [
+    "self"
+   ],
+   "f": []
+  },
+  {
+   "id": "q339",
+   "q": "What's the best meal anyone at this table has ever made you?",
+   "d": "warm",
+   "t": [
+    "food",
+    "friends"
+   ],
+   "f": [
+    "room"
+   ]
+  },
+  {
+   "id": "q340",
+   "q": "Who changed your mind about something big?",
+   "d": "deep",
+   "t": [
+    "life"
+   ],
+   "f": []
+  },
+  {
+   "id": "q341",
+   "q": "What conversation do you keep meaning to have?",
+   "d": "deep",
+   "t": [
+    "life"
+   ],
+   "f": []
+  },
+  {
+   "id": "q342",
+   "q": "What's the bravest thing you've done that nobody saw?",
+   "d": "deep",
+   "t": [
+    "self"
+   ],
+   "f": []
+  },
+  {
+   "id": "q343",
+   "q": "If you got one more ordinary afternoon with someone who's gone, how would you spend it?",
+   "d": "deep",
+   "t": [
+    "memory",
+    "family"
+   ],
+   "f": [
+    "heavy"
+   ]
+  },
+  {
+   "id": "q344",
+   "q": "What part of your life right now will you miss most when it's gone?",
+   "d": "deep",
+   "t": [
+    "life"
+   ],
+   "f": []
+  },
+  {
+   "id": "q345",
+   "q": "When did you know it was time to leave — a job, a place, a person?",
+   "d": "deep",
+   "t": [
+    "life"
+   ],
+   "f": []
+  },
+  {
+   "id": "q346",
+   "q": "What's the closest you've come to a completely different life?",
+   "d": "deep",
+   "t": [
+    "life"
+   ],
+   "f": []
+  },
+  {
+   "id": "q347",
+   "q": "Who do you owe more than you can ever pay back?",
+   "d": "deep",
+   "t": [
+    "life"
+   ],
+   "f": []
+  },
+  {
+   "id": "q348",
+   "q": "Where were you the last time you felt completely at peace?",
+   "d": "deep",
+   "t": [
+    "self"
+   ],
+   "f": []
+  },
+  {
+   "id": "q349",
+   "q": "What would it take to make you leave Vermont?",
+   "d": "deep",
+   "t": [
+    "btown",
+    "life"
+   ],
+   "f": []
+  },
+  {
+   "id": "q350",
+   "q": "What do you hope is exactly the same about this town in twenty years?",
+   "d": "deep",
+   "t": [
+    "btown"
+   ],
+   "f": []
+  },
+  {
+   "id": "q401",
+   "q": "Who in your family are you most like — and would they agree?",
+   "d": "warm",
+   "t": [
+    "family",
+    "self"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q402",
+   "q": "What's a dinner-table rule from your childhood you still follow?",
+   "d": "light",
+   "t": [
+    "family",
+    "childhood"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q403",
+   "q": "What did your family do every summer, no matter what?",
+   "d": "light",
+   "t": [
+    "family",
+    "memory"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q404",
+   "q": "Who taught you to cook the one thing you actually make?",
+   "d": "light",
+   "t": [
+    "family",
+    "food"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q405",
+   "q": "What's a phrase your parents said that now comes out of your mouth?",
+   "d": "warm",
+   "t": [
+    "family",
+    "self"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q406",
+   "q": "Who's the best storyteller in your family? What's their go-to story?",
+   "d": "light",
+   "t": [
+    "family",
+    "memory"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q407",
+   "q": "What's a family tradition you'd fight to keep alive?",
+   "d": "warm",
+   "t": [
+    "family"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q408",
+   "q": "What did you love doing with a grandparent?",
+   "d": "warm",
+   "t": [
+    "family",
+    "memory"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q409",
+   "q": "What's the funniest thing a kid in your life has said lately?",
+   "d": "light",
+   "t": [
+    "family",
+    "now"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q410",
+   "q": "Who in your family would survive longest in a Vermont winter with no power?",
+   "d": "light",
+   "t": [
+    "family",
+    "btown",
+    "whatif"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q411",
+   "q": "What did you want to be at age eight?",
+   "d": "light",
+   "t": [
+    "work",
+    "childhood"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q412",
+   "q": "What's the best job you ever had — not the best-sounding one?",
+   "d": "warm",
+   "t": [
+    "work",
+    "memory"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q413",
+   "q": "What's something about your work most people get wrong?",
+   "d": "light",
+   "t": [
+    "work",
+    "opinions"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q414",
+   "q": "What was your first paycheck spent on?",
+   "d": "light",
+   "t": [
+    "work",
+    "memory"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q415",
+   "q": "Who's the best boss or teacher you've ever had, and what made them good?",
+   "d": "warm",
+   "t": [
+    "work",
+    "memory"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q416",
+   "q": "What's a small work win you never got to brag about? Brag now.",
+   "d": "light",
+   "t": [
+    "work",
+    "confess"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q417",
+   "q": "If money were handled, would you keep doing what you do?",
+   "d": "warm",
+   "t": [
+    "work",
+    "life"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q418",
+   "q": "What's the weirdest task you've ever been paid for?",
+   "d": "light",
+   "t": [
+    "work",
+    "memory"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q419",
+   "q": "What skill from an old job do you still use in real life?",
+   "d": "light",
+   "t": [
+    "work",
+    "self"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q420",
+   "q": "What job could you absolutely never do?",
+   "d": "light",
+   "t": [
+    "work",
+    "opinions"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q421",
+   "q": "What's your perfect Saturday in Burlington, hour by hour?",
+   "d": "light",
+   "t": [
+    "btown",
+    "now"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q422",
+   "q": "What hobby did you drop that you keep meaning to pick back up?",
+   "d": "warm",
+   "t": [
+    "self",
+    "now"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q423",
+   "q": "What's the best live show you've ever seen?",
+   "d": "light",
+   "t": [
+    "memory"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q424",
+   "q": "Swim, hike, or hammock — what's your lake day?",
+   "d": "light",
+   "t": [
+    "btown",
+    "opinions"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q425",
+   "q": "What's something you're weirdly good at that never comes up?",
+   "d": "light",
+   "t": [
+    "self",
+    "confess"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q426",
+   "q": "What do you do when you have the house to yourself?",
+   "d": "light",
+   "t": [
+    "self",
+    "confess"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q427",
+   "q": "What's the last thing you did for the first time?",
+   "d": "light",
+   "t": [
+    "now",
+    "self"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q428",
+   "q": "Board games: ruthless, cooperative, or \"I'll just watch\"?",
+   "d": "light",
+   "t": [
+    "opinions",
+    "self"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q429",
+   "q": "What's a place within an hour of here everyone should go once?",
+   "d": "light",
+   "t": [
+    "btown",
+    "travel",
+    "opinions"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q430",
+   "q": "What did you play as a kid that you'd still play right now?",
+   "d": "light",
+   "t": [
+    "childhood",
+    "memory"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q431",
+   "q": "What's on your list for the next five years — the real list?",
+   "d": "warm",
+   "t": [
+    "life",
+    "self"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q432",
+   "q": "If you could take a year off, what would you do with it?",
+   "d": "warm",
+   "t": [
+    "whatif",
+    "life"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q433",
+   "q": "What's a dream you gave up on that maybe you shouldn't have?",
+   "d": "deep",
+   "t": [
+    "life",
+    "confess"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q434",
+   "q": "What would you build in Burlington if zoning and money didn't exist?",
+   "d": "light",
+   "t": [
+    "btown",
+    "whatif"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q435",
+   "q": "What's the trip you keep almost booking?",
+   "d": "light",
+   "t": [
+    "travel",
+    "now"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q436",
+   "q": "What do you hope people say about you when you're not in the room?",
+   "d": "deep",
+   "t": [
+    "self",
+    "life"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q437",
+   "q": "If you could master one skill overnight, what would it be?",
+   "d": "light",
+   "t": [
+    "whatif",
+    "self"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q438",
+   "q": "What would your perfect ordinary Tuesday look like in ten years?",
+   "d": "warm",
+   "t": [
+    "life",
+    "whatif"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q439",
+   "q": "What's something you want to make with your own hands someday?",
+   "d": "warm",
+   "t": [
+    "life",
+    "self"
+   ],
+   "f": [],
+   "deck": "ford"
+  },
+  {
+   "id": "q440",
+   "q": "What are you quietly working up the courage to do?",
+   "d": "deep",
+   "t": [
+    "confess",
+    "life"
+   ],
+   "f": [],
+   "deck": "ford"
+  }
  ]
 }

@@ -44,19 +44,20 @@ time, and the optional answer timer for a table big enough that one person can
 talk out the whole night.
 
 ### The whole deck
-"See all 311 questions" reveals the lot, searchable. Tap any one to answer it.
+"See all 273 questions" reveals the lot, searchable. Tap any one to answer it.
 
 ### Questions of the week
 Two questions a week, **the same two for the whole town**, Monday to Sunday — one
 for each edition of the Brief.
 
-It's a fixed shuffle of the deck walked two steps a week. 311 is odd, so stepping
-by two cycles through every question before any repeats — about three years of
-Mondays. Deterministic, so there's nothing to store and no cron job to forget
+It's a fixed shuffle of the deck walked two steps a week. Room questions sit it
+out (they need a table and a "me"), which leaves 251 — odd, so stepping by two
+cycles through every question before any repeats — about two and a half years
+of Mondays. Deterministic, so there's nothing to store and no cron job to forget
 about.
 
 It's also what stops the community answers looking dead: without it, answers
-spread so thin across 311 cards that every card reads "nobody has answered this
+spread so thin across 273 cards that every card reads "nobody has answered this
 yet" forever.
 
 ### Deep links

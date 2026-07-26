@@ -15,7 +15,7 @@
                   of its own: it just takes the depth out of your hands and
                   walks you down as you play.
      THE WHEEL  — opt-in party mode. Names, a wheel, one question at a time.
-     THE DECK   — all 311, searchable, on request.
+     THE DECK   — all 273, searchable, on request.
      THE TOWN   — what other people answered, per question, on request. It's a
                   click because reading it mid-conversation kills the
                   conversation, which is the entire point of the game.
@@ -559,7 +559,11 @@
     return d;
   }
   function questionsOfTheWeek() {
-    var classic = QUESTIONS.filter(function (q) { return !q.deck; });
+    /* Room questions need a table and a "me" — they make no sense as the
+       town-wide pair, so they sit this one out. 251 is still odd. */
+    var classic = QUESTIONS.filter(function (q) {
+      return !q.deck && q.f.indexOf('room') === -1;
+    });
     var n = classic.length;
     if (n < 2) return [];
     var order = classic.map(function (_, i) { return i; });
