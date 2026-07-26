@@ -1,28 +1,156 @@
 {
-  "updated": "2026-07-19",
-  "note": "Curated from the Btown Brief newsletter vault (editions Jun 22 - Jul 17, 2026). Refresh by pulling chat-worthy headlines from recent editions and phrasing them as natural openers.",
+  "updated": "2026-07-26",
+  "note": "Curated from the Btown Brief newsletter vault (editions Jun 22 - Jul 24, 2026). TALKING-POINTS.md is the style doctrine; refreshes land as PRs and points age out via 'added'.",
   "points": [
-    { "text": "Did you hear Burlington made a national top-towns-to-visit list? Number six.", "url": "https://www.btownbrief.com/p/friday-july-17th", "sourceName": "the Btown Brief" },
-    { "text": "The Vermont Green women made a playoff run in their first season ever. Anyone catch a match at Virtue Field?", "url": "https://www.btownbrief.com/p/friday-july-17th", "sourceName": "the Btown Brief" },
-    { "text": "There's an official Vermont creemee passport now. Road trip?", "url": "https://www.btownbrief.com/p/friday-july-17th", "sourceName": "the Btown Brief" },
-    { "text": "Front Porch Forum just turned twenty. What's the wildest thing you've seen on there?", "url": "https://www.btownbrief.com/p/friday-july-17th", "sourceName": "the Btown Brief" },
-    { "text": "A Stowe mansion got auctioned off with no minimum price. What would you have bid?", "url": "https://www.btownbrief.com/p/friday-july-17th", "sourceName": "the Btown Brief" },
-    { "text": "Ben & Jerry's Foundation says it's shutting down over the fight with their parent company. Feels like the end of an era?", "url": "https://www.btownbrief.com/p/friday-july-17th", "sourceName": "the Btown Brief" },
-    { "text": "Beta keeps getting bigger — campus, jobs, all of it. Where do you think that goes?", "url": "https://www.btownbrief.com/p/monday-july-13th", "sourceName": "the Btown Brief" },
-    { "text": "Turns out Italian American families have been farming Colchester for a hundred years. Did you catch that story?", "url": "https://www.btownbrief.com/p/monday-july-13th", "sourceName": "the Btown Brief" },
-    { "text": "A land trust just bought two thousand acres in the Champlain Valley to keep it wild.", "url": "https://www.btownbrief.com/p/monday-july-13th", "sourceName": "the Btown Brief" },
-    { "text": "The Nostalgia toy store on Church Street is closing. Did you ever wander in?", "url": "https://www.btownbrief.com/p/monday-july-6th", "sourceName": "the Btown Brief" },
-    { "text": "Leunig's is opening a spot in South Burlington's City Center. Good move or is it a Church Street thing?", "url": "https://www.btownbrief.com/p/monday-july-6th", "sourceName": "the Btown Brief" },
-    { "text": "Kountry Kart is doing late-night again. What's your order?", "url": "https://www.btownbrief.com/p/monday-july-6th", "sourceName": "the Btown Brief" },
-    { "text": "Vermont game stores are turning into little clubhouses — chess nights, card leagues, all of it. Would you go?", "url": "https://www.btownbrief.com/p/monday-july-6th", "sourceName": "the Btown Brief" },
-    { "text": "The Champlain Parkway finally opened. It took sixty-one years. Have you driven it yet?", "url": "https://www.btownbrief.com/p/friday-july-3rd-america-s-250th", "sourceName": "the Btown Brief" },
-    { "text": "Apparently Noah Kahan fans keep making a Vermont road sign disappear. Did you hear about that one?", "url": "https://www.btownbrief.com/p/friday-july-3rd-america-s-250th", "sourceName": "the Btown Brief" },
-    { "text": "If a tourist gave you one day in Burlington, hour by hour, where do you send them?", "url": "https://www.btownbrief.com/p/friday-july-3rd-america-s-250th", "sourceName": "the Btown Brief" },
-    { "text": "Vermont's officially rethinking air conditioning as summers heat up. How are you surviving?", "url": "https://www.btownbrief.com/p/friday-july-3rd-america-s-250th", "sourceName": "the Btown Brief" },
-    { "text": "Seven Days spent twenty-four straight hours on Church Street. What do you think 3 AM looks like out there?", "url": "https://www.btownbrief.com/p/monday-june-29th", "sourceName": "the Btown Brief" },
-    { "text": "Some guy is filming all one hundred of Vermont's covered bridges for YouTube. How many do you think you've crossed?", "url": "https://www.btownbrief.com/p/monday-june-29th", "sourceName": "the Btown Brief" },
-    { "text": "Lippa's Jewelry left Church Street after ninety-three years. What shop would you miss most?", "url": "https://www.btownbrief.com/p/friday-june-26th", "sourceName": "the Btown Brief" },
-    { "text": "The mayor says Burlington is back. Agree or not?", "url": "https://www.btownbrief.com/p/friday-june-26th", "sourceName": "the Btown Brief" },
-    { "text": "One of the papers asked if Vermonters are hungry for neighborhood connection. Well — are we?", "url": "https://www.btownbrief.com/p/monday-june-22nd", "sourceName": "the Btown Brief" }
+    {
+      "text": "Burlington landed at number six on a national top-towns-to-visit list. What would you show a skeptic first?",
+      "url": "https://www.btownbrief.com/p/friday-july-17th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-19"
+    },
+    {
+      "text": "There's an official Vermont creemee passport now. Which stand gets your first stamp?",
+      "url": "https://www.btownbrief.com/p/friday-july-17th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-19"
+    },
+    {
+      "text": "Front Porch Forum just turned twenty. What's the wildest thing you've seen on there?",
+      "url": "https://www.btownbrief.com/p/friday-july-17th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-19"
+    },
+    {
+      "text": "Beta keeps getting bigger — new campus space, new jobs. If electric flights start leaving Burlington someday, where should the first one go?",
+      "url": "https://www.btownbrief.com/p/monday-july-13th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-19"
+    },
+    {
+      "text": "Italian American families have been farming Colchester for a hundred years. Which local farm or family business do you hope is still around in another hundred?",
+      "url": "https://www.btownbrief.com/p/monday-july-13th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-19"
+    },
+    {
+      "text": "A land trust just bought two thousand acres in the Champlain Valley to keep it wild forever. Where's your favorite piece of untouched Vermont?",
+      "url": "https://www.btownbrief.com/p/monday-july-13th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-19"
+    },
+    {
+      "text": "Leunig's is opening a spot in South Burlington's City Center. Good move or is it a Church Street thing?",
+      "url": "https://www.btownbrief.com/p/monday-july-6th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-19"
+    },
+    {
+      "text": "Kountry Kart is doing late-night again. What's your order?",
+      "url": "https://www.btownbrief.com/p/monday-july-6th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-19"
+    },
+    {
+      "text": "Vermont game stores are turning into little clubhouses — chess nights, card leagues. What game could get you out on a weeknight?",
+      "url": "https://www.btownbrief.com/p/monday-july-6th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-19"
+    },
+    {
+      "text": "The Champlain Parkway finally opened. It took sixty-one years. Have you driven it yet?",
+      "url": "https://www.btownbrief.com/p/friday-july-3rd-america-s-250th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-19"
+    },
+    {
+      "text": "Noah Kahan fans keep stealing the same Vermont road sign. What's the farthest you've ever gone for a musician you love?",
+      "url": "https://www.btownbrief.com/p/friday-july-3rd-america-s-250th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-19"
+    },
+    {
+      "text": "Vermont's rethinking air conditioning as summers heat up. What's your move when the house won't cool down?",
+      "url": "https://www.btownbrief.com/p/friday-july-3rd-america-s-250th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-19"
+    },
+    {
+      "text": "Seven Days spent twenty-four straight hours on Church Street. What do you think 3 AM looks like out there?",
+      "url": "https://www.btownbrief.com/p/monday-june-29th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-19"
+    },
+    {
+      "text": "A Vermont filmmaker is documenting all one hundred of Vermont's covered bridges. How many do you think you've crossed?",
+      "url": "https://www.btownbrief.com/p/monday-june-29th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-19"
+    },
+    {
+      "text": "Lippa's Jewelry left Church Street after ninety-three years. What shop would you miss most?",
+      "url": "https://www.btownbrief.com/p/friday-june-26th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-19"
+    },
+    {
+      "text": "The Vermont Green women finished their first season as national runners-up — and never lost a match all year. Has Burlington ever had a team like this?",
+      "url": "https://www.btownbrief.com/p/monday-july-20th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-26"
+    },
+    {
+      "text": "A Malletts Bay couple has found five thousand objects on the bottom of Lake Champlain — including an 1819 steamboat. What do you figure is still down there?",
+      "url": "https://www.btownbrief.com/p/friday-july-24th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-26"
+    },
+    {
+      "text": "The old Courtyard Marriott downtown just became The Harborvale after a nineteen-million-dollar makeover. What Burlington place do you still call by its old name?",
+      "url": "https://www.btownbrief.com/p/friday-july-24th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-26"
+    },
+    {
+      "text": "Festival of Fools takes over Church Street next weekend — eighteen years running. What's the best street act you've ever stopped for?",
+      "url": "https://www.btownbrief.com/p/friday-july-24th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-26"
+    },
+    {
+      "text": "Vermont's first soccer bar just opened in Shelburne — ten TVs and an owner from North London. Which sport is better in a room full of strangers?",
+      "url": "https://www.btownbrief.com/p/friday-july-24th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-26"
+    },
+    {
+      "text": "The Essex doughnut baker who outgrew her home kitchen in eighteen months is moving into Leo & Co. What's your doughnut order?",
+      "url": "https://www.btownbrief.com/p/friday-july-24th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-26"
+    },
+    {
+      "text": "Shelburne Museum is putting up its fortieth building — a Native American art center a decade in the making. When were you last out on that campus?",
+      "url": "https://www.btownbrief.com/p/monday-july-20th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-26"
+    },
+    {
+      "text": "Vermont spent fourteen years as its own republic — its own money, its own post office. What Vermont fact belongs in every visitor's first-day briefing?",
+      "url": "https://www.btownbrief.com/p/monday-july-20th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-26"
+    },
+    {
+      "text": "The Vermont Renaissance Faire runs seventy vendors deep, half in handmade costume. What costume could talk you into going all in?",
+      "url": "https://www.btownbrief.com/p/monday-july-20th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-26"
+    },
+    {
+      "text": "Two new novels just turned real Vermont villages into fiction. Which local town would you cast in a mystery?",
+      "url": "https://www.btownbrief.com/p/monday-july-20th",
+      "sourceName": "the Btown Brief",
+      "added": "2026-07-26"
+    }
   ]
 }
