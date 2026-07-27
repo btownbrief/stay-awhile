@@ -77,9 +77,11 @@ more present than the conversation — if you can hear the writer — it's wrong
 
 ## Mechanical constraints
 
-- The classic deck count must stay **odd** — questions of the week step through
-  a fixed shuffle two at a time, and an odd count means every question gets its
-  turn before any repeats.
+- The classic deck count no longer has to be odd. That rule existed because the
+  question of the week used to be a *pair*, stepping through a fixed shuffle two
+  at a time, where an even count would have split the deck into two halves and
+  only ever shown one of them. It's one question a week now, stepping one at a
+  time, which cycles the whole deck at any count. Add questions freely.
 - New classic questions take sequential ids after the current highest classic
   id (the ford deck owns q401+). Never reuse a retired id: community answers in
   Supabase are keyed by qid.
