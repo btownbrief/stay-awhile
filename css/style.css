@@ -210,6 +210,9 @@ body[data-mode="catchup"] .ways { grid-template-columns: 1fr; }
   line-height: 1.14; letter-spacing: -.012em;
   overflow: hidden;
 }
+/* The clamp is the phone size and the size before js runs. On desktop
+   fitQuestion overrides it per card, because a viewport-derived size can't know
+   how long the sentence is and the long ones were being clipped. */
 .q-tp .q-text {
   font-family: var(--sans); font-size: clamp(24px, 2.6vw, 36px); font-weight: 400;
   line-height: 1.24; letter-spacing: -.01em;

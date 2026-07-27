@@ -46,15 +46,14 @@ talk out the whole night.
 ### The whole deck
 "See all 273 questions" reveals the lot, searchable. Tap any one to answer it.
 
-### Questions of the week
-Two questions a week, **the same two for the whole town**, Monday to Sunday — one
-for each edition of the Brief.
+### Question of the week
+One question a week, **the same one for the whole town**, Monday to Sunday.
 
-It's a fixed shuffle of the deck walked two steps a week. Room questions sit it
-out (they need a table and a "me"), which leaves 251 — odd, so stepping by two
-cycles through every question before any repeats — about two and a half years
-of Mondays. Deterministic, so there's nothing to store and no cron job to forget
-about.
+It's a fixed shuffle of the deck walked one step a week. Room questions sit it
+out (they need a table and a "me"), which leaves 251 — and a single step cycles
+through every one of them before anything repeats, about four and three-quarter
+years of Mondays. Deterministic, so there's nothing to store and no cron job to
+forget about.
 
 It's also what stops the community answers looking dead: without it, answers
 spread so thin across 273 cards that every card reads "nobody has answered this

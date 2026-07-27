@@ -19,7 +19,7 @@
      THE TOWN   — what other people answered, per question, on request. It's a
                   click because reading it mid-conversation kills the
                   conversation, which is the entire point of the game.
-     THE WEEK   — two questions a week, the same two for the whole town. What
+     THE WEEK   — one question a week, the same one for the whole town. What
                   the newsletter links to.
 
    The town runs on the shared Btown Supabase project via db/stay-awhile.sql.
@@ -303,7 +303,6 @@
 
   function fitQuestion(el) {
     if (!el) return;
-    if (el.closest('.q-tp')) { el.style.fontSize = ''; return; }
 
     /* One column (phones): the cards are stacked, so there is no reason to force
        them all to the same height — and forcing it leaves "Do you lock your
@@ -311,8 +310,17 @@
        instead, and CSS picks a big fluid size. Hand the size back to CSS. */
     if (window.innerWidth <= 900) { el.style.fontSize = ''; return; }
 
-    var max = window.innerWidth >= 1100 ? 54 : 46;
-    var min = 17;
+    /* Talking points used to skip the fit and take their size straight from the
+       CSS clamp — but a clamp reads the VIEWPORT, not the sentence. A talking
+       point runs 100–160 characters, two to three times a question, so on a wide
+       screen every long one got the full 36px, sailed past the bottom of the
+       fixed box, and had its last line or three guillotined by overflow:hidden.
+       They get fitted like everything else now, inside the range the CSS
+       already declared. The floor sits under that range so a longer point
+       written later still shrinks to fit rather than being cut off. */
+    var tp = !!el.closest('.q-tp');
+    var max = tp ? 36 : (window.innerWidth >= 1100 ? 54 : 46);
+    var min = tp ? 15 : 17;
 
     // Binary search beats stepping: ~6 measurements instead of ~35.
     var lo = min, hi = max, best = min;
@@ -327,6 +335,15 @@
 
   function fitAll() {
     [].forEach.call(document.querySelectorAll('.q-text'), fitQuestion);
+  }
+
+  /* The fit is a measurement, and on a cold load it measures Georgia — the
+     fallback — because the webfonts arrive with font-display: swap. Georgia is
+     the wider face, so those first cards come out a size or two smaller than
+     they should and stay that way for the whole visit. Measure again once the
+     real fonts land. */
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(fitAll);
   }
 
   var refit;
@@ -560,21 +577,25 @@
   }
   function questionsOfTheWeek() {
     /* Room questions need a table and a "me" — they make no sense as the
-       town-wide pair, so they sit this one out. 251 is still odd. */
+       town-wide question, so they sit this one out. */
     var classic = QUESTIONS.filter(function (q) {
       return !q.deck && q.f.indexOf('room') === -1;
     });
     var n = classic.length;
-    if (n < 2) return [];
+    if (!n) return [];
     var order = classic.map(function (_, i) { return i; });
     var rnd = mulberry32(20260711);
     for (var i = order.length - 1; i > 0; i--) {
       var j = Math.floor(rnd() * (i + 1));
       var t = order[i]; order[i] = order[j]; order[j] = t;
     }
+    /* One a week, walked one step at a time through the fixed shuffle. A
+       single step means the whole deck gets its turn before anything
+       repeats no matter how many questions there are — the old two-at-a-
+       time walk is what needed an odd deck count to guarantee that. */
     var week = Math.round((mondayOfThisWeek() - new Date(2026, 0, 5)) / 604800000);
     var at = function (k) { return classic[order[(((k % n) + n) % n)]]; };
-    return [at(week * 2), at(week * 2 + 1)];
+    return [at(week)];
   }
   function weekRangeLabel() {
     var mon = mondayOfThisWeek(), sun = new Date(mon);
