@@ -183,6 +183,9 @@ body[data-mode="catchup"] .ways { grid-template-columns: 1fr; }
   animation: rise .45s cubic-bezier(.16,1,.3,1);
 }
 @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.trio .q { animation-fill-mode: backwards; }
+.trio .q:nth-child(2) { animation-delay: 60ms; }
+.trio .q:nth-child(3) { animation-delay: 120ms; }
 
 .q-depth {
   font-size: 10px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase;
@@ -278,6 +281,18 @@ body[data-mode="catchup"] .ways { grid-template-columns: 1fr; }
 .chip-depth[aria-pressed="true"][data-d="deep"]  { background: rgba(255,107,53,.16);  border-color: var(--ember); color: var(--ember); }
 .chip-burn { margin-left: 8px; }
 .chip-burn[aria-pressed="true"] { background: rgba(255,107,53,.16); border-color: var(--ember); color: var(--ember); }
+.burn-meter {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 0 4px;
+}
+.burn-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  border: 1px solid var(--faint); background: transparent;
+  transition: background-color .2s, border-color .2s;
+}
+.burn-dot.on[data-d="light"] { background: var(--lake); border-color: var(--lake); }
+.burn-dot.on[data-d="warm"] { background: var(--gold); border-color: var(--gold); }
+.burn-dot.on[data-d="deep"] { background: var(--ember); border-color: var(--ember); }
 
 /* ---------------- the two other ways in ----------------
    These used to be two underlined sentences, which is how you dress something
@@ -418,6 +433,7 @@ body[data-mode="catchup"] .ways { grid-template-columns: 1fr; }
   border-left: 11px solid transparent; border-right: 11px solid transparent;
   border-top: 20px solid var(--ink);
   filter: drop-shadow(0 3px 6px rgba(0,0,0,.55));
+  transform-origin: 50% 0;
 }
 .wheel-hub {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -437,6 +453,19 @@ body[data-mode="catchup"] .ways { grid-template-columns: 1fr; }
   text-align: center; letter-spacing: -.01em;
 }
 .whose-turn em { font-style: italic; color: var(--gold); }
+.whose-turn .chosen { display: inline-block; }
+.wheel-stage.is-settled .pointer { animation: pointer-tick .32s cubic-bezier(.16,1,.3,1); }
+.wheel-stage.is-settled .chosen { animation: chosen-pop .38s cubic-bezier(.16,1,.3,1); }
+@keyframes pointer-tick {
+  0%   { transform: translateX(-50%) rotate(-5deg); }
+  45%  { transform: translateX(-50%) rotate(4deg) scale(1.06); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes chosen-pop {
+  0%   { opacity: .65; transform: scale(.96); }
+  55%  { opacity: 1; transform: scale(1.045); }
+  100% { transform: none; }
+}
 
 .card {
   width: 100%; margin-top: 24px;
@@ -456,6 +485,7 @@ body[data-mode="catchup"] .ways { grid-template-columns: 1fr; }
 .timer-left {
   font-size: 12px; font-variant-numeric: tabular-nums;
   color: var(--muted); min-width: 42px; text-align: right;
+  transition: color .25s;
 }
 .timer-more {
   background: none; border: 1px solid var(--line-2); border-radius: 999px;
@@ -463,8 +493,15 @@ body[data-mode="catchup"] .ways { grid-template-columns: 1fr; }
   font-family: var(--sans); font-size: 12px;
 }
 .timer-more:hover { color: var(--ink); border-color: rgba(255,255,255,.35); }
+.timer.urgent .timer-bar { background: #F2A488; }
+.timer.urgent .timer-left { color: #F2A488; }
 .timer.up .timer-bar { background: var(--ember); }
 .timer.up .timer-left { color: var(--ember); font-weight: 600; }
+.timer.up { animation: timer-heartbeat .72s ease-in-out 2; }
+@keyframes timer-heartbeat {
+  0%, 100% { transform: scale(1); }
+  45% { transform: scale(1.012); }
+}
 
 /* ---------------- the whole deck ---------------- */
 
@@ -499,6 +536,11 @@ body[data-mode="catchup"] .ways { grid-template-columns: 1fr; }
 
 .town-list { display: flex; flex-direction: column; gap: 9px; }
 .answer { padding: 12px 14px; border-radius: 12px; background: rgba(0,0,0,.26); border: 1px solid var(--line); }
+.answer.just-added { animation: answer-land 1.35s ease-out; }
+@keyframes answer-land {
+  0%, 28% { background: rgba(232,176,75,.13); border-color: rgba(232,176,75,.58); }
+  100% { background: rgba(0,0,0,.26); border-color: var(--line); }
+}
 .answer p { margin: 0; font-size: 14px; color: rgba(244,239,233,.94); white-space: pre-wrap; }
 .answer-meta { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 11.5px; color: var(--faint); }
 .answer-meta .who { color: var(--gold); font-weight: 500; }
@@ -632,6 +674,14 @@ body[data-mode="catchup"] .ways { grid-template-columns: 1fr; }
 
 @media (prefers-reduced-motion: reduce) {
   .wheel { transition-duration: .8s; }
-  .q, .card { animation: none; }
+  .q, .card,
+  .wheel-stage.is-settled .pointer,
+  .wheel-stage.is-settled .chosen,
+  .timer.up,
+  .answer.just-added { animation: none; }
+  .answer.just-added {
+    background: rgba(232,176,75,.13);
+    border-color: rgba(232,176,75,.58);
+  }
   html { scroll-behavior: auto; }
 }
