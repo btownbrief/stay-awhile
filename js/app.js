@@ -103,7 +103,8 @@
   var players = store('sa-players', []);
   var wheelOn = false;
   var current = null;          // the wheel's question
-  var rotation = 0, spinning = false, tick = null;
+  var rotation = 0, spinning = false, spinTimeout = null, spinWasHidden = false;
+  var landingTimer = null, tick = null;
   var timerOn = false, timerSecs = 90;
 
   var townMode = null;         // 'live' | 'local'
@@ -353,7 +354,8 @@
   });
 
   function renderTrio() {
-    var live = pool();
+    var dealRound = mode === 'classic' ? round + 1 : round;
+    var live = pool(dials.burn && mode === 'classic' ? [burnDepthFor(dealRound)] : null);
     if (mode === 'catchup' && !TALKING_POINTS.length) {
       $('trio').innerHTML = '';
       $('deal-note').textContent = '';
@@ -365,7 +367,7 @@
       return;
     }
 
-    round += 1;
+    if (mode === 'classic') round = dealRound;
     var previous = trio.filter(function (item) { return !item._tp; }).map(function (q) { return q.id; });
     var next = [];
     var handSize = mode === 'catchup' ? 3 : Math.min(3, live.length);
@@ -383,6 +385,7 @@
         : '<article class="q" data-id="' + item.id + '">' + cardHtml(item) + '</article>';
     }).join('');
 
+    updateBurnMeter();
     fitAll();
     trio.forEach(function (item) {
       if (item._tp) track('sa-tp-served', 'tp', item.category);
@@ -398,6 +401,19 @@
 
   /* ---------------- the dials ---------------- */
 
+  function updateBurnMeter() {
+    var meter = document.querySelector('.burn-meter');
+    if (!meter) return;
+    var meterRound = round || 1;
+    var depth = burnDepthFor(meterRound);
+    var reached = ORDER.indexOf(depth);
+    meter.setAttribute('aria-label', 'Slow burn depth: ' +
+      DEPTHS[reached].label + '. ' + meterRound + (meterRound === 1 ? ' round' : ' rounds') + '.');
+    [].forEach.call(meter.querySelectorAll('.burn-dot'), function (dot, i) {
+      dot.classList.toggle('on', i <= reached);
+    });
+  }
+
   function renderDials() {
     $('depth-chips').innerHTML =
       DEPTHS.map(function (d) {
@@ -406,7 +422,12 @@
                '" aria-pressed="' + on + '">' + esc(d.label) + '</button>';
       }).join('') +
       '<button class="chip chip-burn" data-burn="1" aria-pressed="' + dials.burn +
-      '" title="Start shallow and work down as you play">The slow burn ↗</button>';
+      '" title="Start shallow and work down as you play">The slow burn ↗</button>' +
+      '<span class="burn-meter" role="img"' + (dials.burn ? '' : ' hidden') + '>' +
+        ORDER.map(function (depth) {
+          return '<span class="burn-dot" data-d="' + depth + '" aria-hidden="true"></span>';
+        }).join('') +
+      '</span>';
 
     var on = dials.topics;
     $('topic-chips').innerHTML =
@@ -418,6 +439,7 @@
       }).join('');
 
     save('sa-dials', dials);
+    updateBurnMeter();
   }
 
   /* ---------------- the town ---------------- */
@@ -455,10 +477,11 @@
 
   /* The reveal is now just the reading half — the answers other people left.
      Writing your own lives on the card itself and never goes away. */
-  function townHtml(rows, msg) {
+  function townHtml(rows, msg, highlightId) {
     var list = rows.length
       ? rows.map(function (r) {
-          return '<div class="answer">' +
+          var justAdded = highlightId && String(r.id) === String(highlightId);
+          return '<div class="answer' + (justAdded ? ' just-added' : '') + '">' +
             '<p>' + esc(r.body) + '</p>' +
             '<div class="answer-meta">' +
               '<span class="who">' + esc(r.name || 'Anonymous') + '</span>' +
@@ -479,20 +502,31 @@
       (msg ? '<p class="town-status">' + esc(msg) + '</p>' : '');
   }
 
-  function loadTown(qid, box, msg) {
+  function finishTownLoad(box, rows, msg, highlightId) {
+    box.innerHTML = townHtml(rows, msg, highlightId);
+    var added = box.querySelector('.just-added');
+    if (added) {
+      setTimeout(function () { added.classList.remove('just-added'); }, 1400);
+    }
+  }
+
+  function loadTown(qid, box, msg, highlightId) {
     box.hidden = false;
     if (!box.innerHTML) box.innerHTML = '<p class="answer-empty">Reading the room…</p>';
 
     var offline = function () {
       townMode = 'local';
-      box.innerHTML = townHtml(localAnswers(qid),
-        msg || 'Saved on this device only — the shared answers aren’t switched on yet.');
+      finishTownLoad(box, localAnswers(qid),
+        msg || 'Saved on this device only — the shared answers aren’t switched on yet.', highlightId);
     };
 
     if (townMode === 'local') return offline();
 
     return rpc('btb_sa_list', { p_qid: qid })
-      .then(function (rows) { townMode = 'live'; box.innerHTML = townHtml(rows || [], msg); })
+      .then(function (rows) {
+        townMode = 'live';
+        finishTownLoad(box, rows || [], msg, highlightId);
+      })
       .catch(offline);
   }
 
@@ -524,27 +558,30 @@
     track('sa-answered', qid, '');
 
     if (townMode === 'local') {
-      saveLocalAnswer(qid, { id: 'l' + Date.now(), name: name, body: body,
+      var localId = 'l' + Date.now();
+      saveLocalAnswer(qid, { id: localId, name: name, body: body,
                              created_at: new Date().toISOString(), hearts: 0 });
       reset();
       box.innerHTML = '';
-      loadTown(qid, box, 'Saved on this device. It’ll stay private until the shared answers are on.');
+      loadTown(qid, box, 'Saved on this device. It’ll stay private until the shared answers are on.',
+        localId);
       return;
     }
 
     rpc('btb_sa_submit', { p_qid: qid, p_name: name, p_body: body, p_voter: visitor })
-      .then(function () {
+      .then(function (answerId) {
         reset();
         box.innerHTML = '';
-        loadTown(qid, box, 'Added. Thanks for actually answering.');
+        loadTown(qid, box, 'Added. Thanks for actually answering.', answerId);
       })
       .catch(function () {
         townMode = 'local';
-        saveLocalAnswer(qid, { id: 'l' + Date.now(), name: name, body: body,
+        var fallbackId = 'l' + Date.now();
+        saveLocalAnswer(qid, { id: fallbackId, name: name, body: body,
                                created_at: new Date().toISOString(), hearts: 0 });
         reset();
         box.innerHTML = '';
-        loadTown(qid, box, 'Couldn’t reach the town — saved on this device instead.');
+        loadTown(qid, box, 'Couldn’t reach the town — saved on this device instead.', fallbackId);
       });
   }
 
@@ -691,21 +728,25 @@
     if (players.length < 2) $('wheel-card').hidden = true;
   }
 
-  function stopTimer() { if (tick) { clearInterval(tick); tick = null; } $('timer').hidden = true; }
+  function stopTimer() {
+    if (tick) { clearInterval(tick); tick = null; }
+    $('timer').hidden = true;
+  }
 
   function startTimer() {
     stopTimer();
     if (!timerOn || !current || current._tp) return;
     var left = timerSecs, bar = $('timer-bar'), el = $('timer');
-    el.hidden = false; el.classList.remove('up');
+    el.hidden = false; el.classList.remove('urgent', 'up');
     bar.style.transition = 'none'; bar.style.width = '100%';
     requestAnimationFrame(function () {
-      bar.style.transition = 'width ' + timerSecs + 's linear';
+      bar.style.transition = 'width ' + timerSecs + 's linear, background-color .25s ease';
       bar.style.width = '0%';
     });
     $('timer-left').textContent = left + 's';
     tick = setInterval(function () {
       left -= 1;
+      if (left <= 15) el.classList.add('urgent');
       if (left <= 0) { clearInterval(tick); tick = null; $('timer-left').textContent = 'Time.'; el.classList.add('up'); return; }
       $('timer-left').textContent = left + 's';
     }, 1000);
@@ -732,9 +773,35 @@
     else { track('sa-served', item.id, item.d); startTimer(); }
   }
 
+  function clearLandingEffect() {
+    if (landingTimer) { clearTimeout(landingTimer); landingTimer = null; }
+    $('wheel-stage').classList.remove('is-settled');
+  }
+
+  function showLanding(name, animate) {
+    clearLandingEffect();
+    $('whose-turn').innerHTML = '<em class="chosen">' + esc(name) + '</em>, you’re up.';
+    if (!animate) return;
+    /* Reflow is intentional here: it lets rapid spins replace, rather than
+       queue, the one short landing treatment. */
+    void $('wheel-stage').offsetWidth;
+    $('wheel-stage').classList.add('is-settled');
+    landingTimer = setTimeout(clearLandingEffect, 520);
+  }
+
+  function cancelSpin() {
+    if (spinTimeout) { clearTimeout(spinTimeout); spinTimeout = null; }
+    spinning = false;
+    $('spin-btn').disabled = false;
+    $('next-btn').disabled = false;
+    clearLandingEffect();
+  }
+
   function spin(then) {
     if (spinning || players.length < 2) return;
+    clearLandingEffect();
     spinning = true;
+    spinWasHidden = false;
     $('spin-btn').disabled = true; $('next-btn').disabled = true;
     $('whose-turn').innerHTML = '';
 
@@ -746,10 +813,11 @@
     rotation += 360 * (5 + Math.floor(Math.random() * 3)) + ((wanted - atNow) % 360 + 360) % 360;
     $('wheel').style.transform = 'rotate(' + rotation + 'deg)';
 
-    setTimeout(function () {
+    spinTimeout = setTimeout(function () {
+      spinTimeout = null;
       spinning = false;
       $('spin-btn').disabled = false; $('next-btn').disabled = false;
-      $('whose-turn').innerHTML = '<em>' + esc(players[target]) + '</em>, you’re up.';
+      showLanding(players[target], !spinWasHidden && !document.hidden);
       if (then) then();
     }, 4050);
   }
@@ -894,7 +962,7 @@
       $('wheel-panel').scrollIntoView({ block: 'start', behavior: 'smooth' });
     });
     $('close-wheel').addEventListener('click', function () {
-      wheelOn = false; stopTimer();
+      wheelOn = false; cancelSpin(); stopTimer();
       $('wheel-panel').hidden = true;
       $('deal').scrollIntoView({ block: 'start', behavior: 'smooth' });
     });
@@ -951,6 +1019,10 @@
       timerSecs = 30 + (parseInt($('timer-left').textContent, 10) || 0);
       startTimer();
       timerSecs = keep;
+    });
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden && spinning) spinWasHidden = true;
     });
 
     $('play-all').addEventListener('click', function () {
