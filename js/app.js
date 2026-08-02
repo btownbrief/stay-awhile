@@ -31,6 +31,7 @@
 
   var SUPABASE_URL = 'https://jnouvwxomrcffqwilqkq.supabase.co';
   var SUPABASE_ANON_KEY = 'sb_publishable_RkMJQopffWlV6DSwCRkndQ_Xw6GJMf3';
+  var HEADLINES_URL = 'https://guide.btownbrief.com/data/ticker.json';
 
   var WEDGE = ['#FF6B35', '#E8B04B', '#5BC8F5', '#F2A488',
                '#C7D96B', '#F5D98B', '#8FD3C7', '#FF9F68'];
@@ -97,8 +98,13 @@
   var round = 0;
 
   var TALKING_POINTS = [];
+  var HEADLINES = [];
   var tpServed = {};
+  var headlineServed = {};
+  var catchUpPicks = 0;
+  var headlinePicks = 0;
   var tpLoading = null;
+  var headlineLoading = null;
 
   var players = store('sa-players', []);
   var wheelOn = false;
@@ -196,10 +202,65 @@
     return tpLoading;
   }
 
+  function headlinePrompt(headline, index) {
+    if (/\?$/.test(headline)) return headline;
+    var prompts = [
+      'What would you want to know next?',
+      'What catches your attention there?',
+      'What does that bring to mind for you?'
+    ];
+    return headline.replace(/[.!:;]+$/, '') + '. ' + prompts[index % prompts.length];
+  }
+
+  function loadHeadlines() {
+    if (headlineLoading) return headlineLoading;
+    headlineLoading = fetch(HEADLINES_URL)
+      .then(function (r) { if (!r.ok) throw new Error('headlines → ' + r.status); return r.json(); })
+      .then(function (feed) {
+        var seen = {};
+        var url = feed.latest && feed.latest.url;
+        HEADLINES = (feed.headlines || []).reduce(function (points, item, index) {
+          var headline = String(item == null ? '' : item).replace(/\s+/g, ' ').trim();
+          var key = headline.toLowerCase();
+          if (!headline || seen[key]) return points;
+          seen[key] = true;
+          points.push({ _tp: true, _feedIndex: index,
+                        text: headlinePrompt(headline, index), url: url || null,
+                        sourceName: 'the Btown Brief', category: 'headline' });
+          return points;
+        }, []);
+      })
+      .catch(function () { HEADLINES = []; });
+    return headlineLoading;
+  }
+
+  function takeHeadline() {
+    var fresh = HEADLINES.filter(function (point) { return !headlineServed[point.text]; });
+    if (!fresh.length) return null;
+
+    /* The feed is newest-first. Keep that order, but every fifth news card
+       reaches past its first eight items for one older surprise. */
+    headlinePicks += 1;
+    var older = fresh.filter(function (point) { return point._feedIndex >= 8; });
+    var point = headlinePicks % 5 === 0 && older.length
+      ? older[Math.floor(Math.random() * older.length)]
+      : fresh[0];
+    headlineServed[point.text] = true;
+    return point;
+  }
+
   function takeTalkingPoint() {
+    /* Two live headlines and one hand-written point keeps Catch Up current
+       without burying the deck that still has to work when the feed is down. */
+    catchUpPicks += 1;
+    if (catchUpPicks % 3 !== 0) {
+      var headline = takeHeadline();
+      if (headline) return headline;
+    }
+
     var fresh = TALKING_POINTS.filter(function (point) { return !tpServed[point.text]; });
     if (!fresh.length) { tpServed = {}; fresh = TALKING_POINTS.slice(); }
-    if (!fresh.length) return null;
+    if (!fresh.length) return takeHeadline();
     var point = fresh[Math.floor(Math.random() * fresh.length)];
     tpServed[point.text] = true;
     return point;
@@ -237,14 +298,14 @@
       return;
     }
 
-    if (TALKING_POINTS.length) {
+    if (TALKING_POINTS.length || HEADLINES.length) {
       renderTrio();
       return;
     }
     renderTrio();
-    loadTalkingPoints().then(function () {
+    Promise.all([loadTalkingPoints(), loadHeadlines()]).then(function () {
       if (mode !== 'catchup') return;
-      if (TALKING_POINTS.length) {
+      if (TALKING_POINTS.length || HEADLINES.length) {
         renderTrio();
         return;
       }
@@ -356,7 +417,7 @@
   function renderTrio() {
     var dealRound = mode === 'classic' ? round + 1 : round;
     var live = pool(dials.burn && mode === 'classic' ? [burnDepthFor(dealRound)] : null);
-    if (mode === 'catchup' && !TALKING_POINTS.length) {
+    if (mode === 'catchup' && !TALKING_POINTS.length && !HEADLINES.length) {
       $('trio').innerHTML = '';
       $('deal-note').textContent = '';
       return;
@@ -1035,6 +1096,9 @@
   }
 
   /* ---------------- go ---------------- */
+
+  loadTalkingPoints();
+  loadHeadlines();
 
   fetch('data/questions.json')
     .then(function (r) { return r.json(); })
