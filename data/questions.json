@@ -3158,6 +3158,270 @@
    ],
    "f": [],
    "deck": "ford"
+  },
+  {
+   "id": "q351",
+   "q": "What did you eat on a trip that felt very far from home?",
+   "d": "light",
+   "t": [
+    "travel",
+    "food"
+   ],
+   "f": []
+  },
+  {
+   "id": "q352",
+   "q": "What's a trip that went wrong in a way you're now glad about?",
+   "d": "warm",
+   "t": [
+    "travel"
+   ],
+   "f": []
+  },
+  {
+   "id": "q353",
+   "q": "What's something you ate at a gas station that was much better than you expected?",
+   "d": "light",
+   "t": [
+    "travel",
+    "food"
+   ],
+   "f": []
+  },
+  {
+   "id": "q354",
+   "q": "What's a small town you spent a night in, and what do you remember about it?",
+   "d": "light",
+   "t": [
+    "travel"
+   ],
+   "f": []
+  },
+  {
+   "id": "q355",
+   "q": "What have you forgotten to pack that you never travel without now?",
+   "d": "light",
+   "t": [
+    "travel",
+    "self"
+   ],
+   "f": []
+  },
+  {
+   "id": "q356",
+   "q": "What's a place you'd go back to just for the smell of it?",
+   "d": "warm",
+   "t": [
+    "travel",
+    "memory"
+   ],
+   "f": []
+  },
+  {
+   "id": "q357",
+   "q": "What did someone notice about you that made you feel known?",
+   "d": "warm",
+   "t": [
+    "love"
+   ],
+   "f": []
+  },
+  {
+   "id": "q358",
+   "q": "When did someone show you what a good apology looks like?",
+   "d": "warm",
+   "t": [
+    "love",
+    "family"
+   ],
+   "f": []
+  },
+  {
+   "id": "q359",
+   "q": "What's a date, good or bad, you still tell the story of?",
+   "d": "warm",
+   "t": [
+    "love"
+   ],
+   "f": []
+  },
+  {
+   "id": "q360",
+   "q": "What's something you find yourself doing when you really like someone?",
+   "d": "warm",
+   "t": [
+    "love",
+    "friends"
+   ],
+   "f": []
+  },
+  {
+   "id": "q361",
+   "q": "What's something you ate just to be polite, and what was the occasion?",
+   "d": "light",
+   "t": [
+    "food",
+    "confess"
+   ],
+   "f": []
+  },
+  {
+   "id": "q362",
+   "q": "What did you collect as a kid, and what became of it?",
+   "d": "light",
+   "t": [
+    "childhood"
+   ],
+   "f": []
+  },
+  {
+   "id": "q363",
+   "q": "Whose house did you love sleeping over at, and why theirs?",
+   "d": "warm",
+   "t": [
+    "childhood",
+    "friends"
+   ],
+   "f": []
+  },
+  {
+   "id": "q364",
+   "q": "When did sitting quietly with a friend feel like exactly what you needed?",
+   "d": "warm",
+   "t": [
+    "friends"
+   ],
+   "f": []
+  },
+  {
+   "id": "q365",
+   "q": "Who at this table is most likely to end up famous in Burlington specifically?",
+   "d": "light",
+   "t": [
+    "btown"
+   ],
+   "f": [
+    "room"
+   ]
+  },
+  {
+   "id": "q366",
+   "q": "Who did something for you that you only appreciated later?",
+   "d": "warm",
+   "t": [
+    "memory"
+   ],
+   "f": []
+  },
+  {
+   "id": "q367",
+   "q": "When did you notice you'd changed your mind about something you once believed strongly?",
+   "d": "warm",
+   "t": [
+    "self",
+    "opinions"
+   ],
+   "f": []
+  },
+  {
+   "id": "q368",
+   "q": "When did you feel at home somewhere you were only visiting?",
+   "d": "warm",
+   "t": [
+    "travel",
+    "memory"
+   ],
+   "f": []
+  },
+  {
+   "id": "q369",
+   "q": "What place looked nothing like you expected when you arrived?",
+   "d": "light",
+   "t": [
+    "travel",
+    "memory"
+   ],
+   "f": []
+  },
+  {
+   "id": "q370",
+   "q": "Who did you meet on a trip that you still think about?",
+   "d": "warm",
+   "t": [
+    "travel",
+    "friends"
+   ],
+   "f": []
+  },
+  {
+   "id": "q371",
+   "q": "When did you realize you were trying too hard to impress someone?",
+   "d": "light",
+   "t": [
+    "love",
+    "confess"
+   ],
+   "f": []
+  },
+  {
+   "id": "q372",
+   "q": "When did you know you wanted to see someone again?",
+   "d": "warm",
+   "t": [
+    "love",
+    "memory"
+   ],
+   "f": []
+  },
+  {
+   "id": "q373",
+   "q": "What's a habit you picked up from someone you love?",
+   "d": "warm",
+   "t": [
+    "love",
+    "self"
+   ],
+   "f": []
+  },
+  {
+   "id": "q374",
+   "q": "What did an ordinary Saturday look like when you were a kid?",
+   "d": "warm",
+   "t": [
+    "childhood",
+    "memory"
+   ],
+   "f": []
+  },
+  {
+   "id": "q375",
+   "q": "What do you remember about the first time you went somewhere without an adult?",
+   "d": "warm",
+   "t": [
+    "childhood",
+    "memory"
+   ],
+   "f": []
+  },
+  {
+   "id": "q376",
+   "q": "When did a meal make you feel taken care of?",
+   "d": "warm",
+   "t": [
+    "food",
+    "memory"
+   ],
+   "f": []
+  },
+  {
+   "id": "q377",
+   "q": "What food did you learn to love because of one particular person?",
+   "d": "light",
+   "t": [
+    "food",
+    "memory"
+   ],
+   "f": []
   }
  ]
 }
