@@ -629,6 +629,52 @@ body[data-mode="catchup"] .ways { grid-template-columns: 1fr; }
 .q-open .q-text { height: clamp(200px, 26vh, 300px); }
 .single .back { margin: 0; display: flex; justify-content: center; }
 
+/* ---------------- the archive (answers.html) ----------------
+   The reveal on a card shows one question's answers. This page is the whole
+   guestbook: every question that's been answered, newest first, in one
+   scroll. Same vocabulary as the cards — .town-list, .answer — under a
+   plain serif heading per question instead of a glass card. */
+
+.archive { padding-top: 64px; }
+
+.archive-head .eyebrow { margin-bottom: 22px; }
+.archive-back {
+  color: var(--muted); text-decoration: none;
+  letter-spacing: .18em;
+}
+.archive-back:hover { color: var(--gold); }
+.archive-head h1 {
+  margin: 0; font-family: var(--serif); font-weight: 400;
+  font-size: clamp(42px, 7vw, 72px); line-height: 1; letter-spacing: -.015em;
+}
+.archive-head h1 em { font-style: italic; color: var(--gold); }
+.archive-sub { margin: 16px 0 0; max-width: 42em; color: var(--muted); font-size: 15px; }
+
+.archive-filter { margin-top: -12px; }
+.archive-note { margin: -20px 0 0; font-size: 12.5px; color: var(--faint); font-style: italic; }
+
+.archive-list { display: flex; flex-direction: column; gap: 40px; }
+
+.aq { padding-top: 28px; border-top: 1px solid var(--line); }
+.aq-head { display: flex; align-items: baseline; gap: 12px; }
+.aq-head .all-dot { transform: translateY(-3px); }
+.aq-q {
+  margin: 0; font-family: var(--serif); font-weight: 400;
+  font-size: clamp(22px, 3.1vw, 30px); line-height: 1.2; letter-spacing: -.01em;
+}
+.aq-meta { margin: 8px 0 16px; font-size: 12.5px; color: var(--faint); }
+.aq-meta a { color: var(--faint); text-decoration: none; }
+.aq-meta a:hover { color: var(--gold); }
+
+.a-hearts { color: var(--ember); font-variant-numeric: tabular-nums; }
+
+.archive-empty { margin: 0; padding: 30px 0; color: var(--faint); font-style: italic; }
+
+/* The quiet way in, from the question-of-the-week box. */
+.qotw-more { margin: 14px 0 0; font-size: 13px; }
+.qotw-more a { color: var(--muted); text-decoration: none; }
+.qotw-more a:hover { color: var(--gold); }
+
 /* ---------------- FOOT ---------------- */
 
 .foot {
