@@ -91,6 +91,24 @@ $$;
 
 grant execute on function btb_sa_list(text) to anon;
 
+-- The archive (answers.html): everything the town has said, in one pull,
+-- newest first across every question — the page groups by qid itself.
+-- Dropped first so this file stays safe to re-run if the return type ever
+-- changes, same as btb_sa_list above.
+drop function if exists public.btb_sa_feed(int);
+
+create or replace function btb_sa_feed(p_limit int default 1000)
+returns table (qid text, id uuid, name text, body text, hearts int, created_at timestamptz)
+language sql security definer set search_path = public as $$
+  select a.qid, a.id, a.name, a.body, a.hearts, a.created_at
+  from btb_sa_answers a
+  where a.status = 'visible'
+  order by a.created_at desc
+  limit least(coalesce(p_limit, 1000), 2000);
+$$;
+
+grant execute on function btb_sa_feed(int) to anon;
+
 -- ---------- write ----------
 
 create or replace function btb_sa_submit(
