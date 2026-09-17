@@ -892,8 +892,28 @@
 
   /* ---------------- wiring ---------------- */
 
+  /* ?embed=1 — the cut that runs inside the city guide's All Boards page
+     (guide.btownbrief.com/all.html): just the three questions and the deal
+     button, big enough to read across a table. The host page tells us when
+     this channel comes on air, and that's the cue for a fresh three. */
+  var EMBED = /(?:^|[?&])embed=1/.test(window.location.search);
+  function wireEmbed() {
+    if (!EMBED) return;
+    document.body.classList.add('embed');
+    var lastDeal = Date.now();
+    $('deal-btn').addEventListener('click', function () { lastDeal = Date.now(); });
+    window.addEventListener('message', function (e) {
+      var d = e.data;
+      if (!d || d.source !== 'btown-all' || d.action !== 'show') return;
+      if (Date.now() - lastDeal < 20000) return;   // just dealt; don't churn
+      lastDeal = Date.now();
+      renderTrio();
+    });
+  }
+
   function wire() {
     $('deal-btn').addEventListener('click', renderTrio);
+    wireEmbed();
 
     document.querySelector('.mode-switch').addEventListener('click', function (e) {
       var tab = e.target.closest('.mode-tab');

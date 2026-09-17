@@ -731,3 +731,30 @@ body[data-mode="catchup"] .ways { grid-template-columns: 1fr; }
   }
   html { scroll-behavior: auto; }
 }
+
+/* ---------- "Use all three" — the third way in ---------- */
+.ways { grid-template-columns: 1fr 1fr; }
+.way-all { grid-column: 1 / -1; text-decoration: none; }
+.way-all strong { color: var(--gold); }
+
+/* ---------- ?embed=1 — the cut that runs inside All Boards ----------
+   Nothing but the three questions and the deal button, sized to be read from
+   across a table. Everything else on the page is a link out, and a channel on
+   someone else's screen has nowhere to go. */
+body.embed .hero,
+body.embed .mode-control,
+body.embed .qotw,
+body.embed .dials,
+body.embed .ways,
+body.embed .foot,
+body.embed .panel,
+body.embed > nav,
+body.embed #btown-nav,
+body.embed #btown-ticker,
+body.embed .btb-nav,
+body.embed .btb-ticker { display: none !important; }
+body.embed { min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; }
+body.embed .wrap { width: min(1500px, 94vw); max-width: none; margin: 0 auto; padding: clamp(16px, 3vh, 40px) 0; }
+body.embed .trio { gap: clamp(14px, 2vw, 28px); }
+body.embed .trio .q-text { font-size: clamp(22px, 2.5vw, 40px); line-height: 1.22; }
+body.embed .deal-row { margin-top: clamp(18px, 4vh, 44px); justify-content: center; }
