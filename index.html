@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20260827a">
+<link rel="stylesheet" href="css/style.css?v=20260917a">
 <!-- GoatCounter -->
 <script data-goatcounter="https://btown-brief.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -135,6 +135,24 @@
           <small>The whole deck, searchable</small>
         </span>
       </button>
+
+      <!-- The third way: this, Pulse Live and Table Talk taking turns on one
+           screen. It lives on the city guide; every one of the three links to it. -->
+      <a class="way way-all" id="open-boards" href="https://guide.btownbrief.com/all.html?start=ask">
+        <span class="way-icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" width="40" height="40">
+            <rect x="4" y="8" width="32" height="22" rx="3" fill="#131013" stroke="#E8B04B" stroke-width="1.6"/>
+            <line x1="14.7" y1="8" x2="14.7" y2="30" stroke="#6E655D" stroke-width="1.4"/>
+            <line x1="25.3" y1="8" x2="25.3" y2="30" stroke="#6E655D" stroke-width="1.4"/>
+            <rect x="4" y="27" width="10.7" height="3" fill="#FF6B35"/>
+            <line x1="14" y1="35" x2="26" y2="35" stroke="#A2988E" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="way-text">
+          <strong>Use all three</strong>
+          <small>Headlines, table cards and these questions, taking turns on one screen</small>
+        </span>
+      </a>
     </div>
   </section>
 
@@ -234,8 +252,15 @@
   </span>
 </footer>
 
-<script src="js/app.js?v=20260802a"></script>
-<script src="https://play.btownbrief.com/nav.js" defer></script>
-<script src="https://play.btownbrief.com/ticker.js" defer></script>
+<script src="js/app.js?v=20260917a"></script>
+<script>
+/* The arcade nav and ticker belong on the full page. As a channel inside the
+   city guide's All Boards page (?embed=1) this is three questions and a button. */
+if (!/(?:^|[?&])embed=1/.test(location.search)) {
+  ['https://play.btownbrief.com/nav.js', 'https://play.btownbrief.com/ticker.js'].forEach(function (src) {
+    var s = document.createElement('script'); s.src = src; s.defer = true; document.body.appendChild(s);
+  });
+}
+</script>
 </body>
 </html>
