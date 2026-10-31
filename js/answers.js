@@ -170,6 +170,7 @@
   function groupFeed(rows) {
     var byQid = {}, order = [];
     rows.forEach(function (r) {
+      if (!/^q\d/.test(r.qid)) return;   // All Day's own questions (tt, bd, n) live there
       if (!byQid[r.qid]) { byQid[r.qid] = []; order.push(r.qid); }
       byQid[r.qid].push(r);
     });

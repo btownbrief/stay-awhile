@@ -114,12 +114,14 @@
     $('empty').hidden = true;
 
     box.innerHTML = list.map(function (r) {
-      var q = questions[r.qid];
+      var q = questions[r.qid] || (/^n/.test(r.qid) ? 'A question on a news headline, in All Day' : null);
       var isHidden = r.status === 'hidden';
       return '<article class="mod' + (isHidden ? ' is-hidden' : '') +
              (r.flags > 0 && !isHidden ? ' is-flagged' : '') + '">' +
         '<div class="mod-q">' +
-          '<a href="./?q=' + esc(r.qid) + '" target="_blank" rel="noopener">' + esc(r.qid) + '</a>' +
+          (/^q\d/.test(r.qid)
+            ? '<a href="./?q=' + esc(r.qid) + '" target="_blank" rel="noopener">' + esc(r.qid) + '</a>'
+            : '<a href="https://guide.btownbrief.com/all-day/#people/board" target="_blank" rel="noopener">' + esc(r.qid) + '</a>') +
           (q ? ' <span>' + esc(q) + '</span>' : '') +
         '</div>' +
         '<p class="mod-body">' + esc(r.body) + '</p>' +
@@ -201,6 +203,17 @@
       if (rows.length) render();
     })
     .catch(function () {});
+
+  // All Day answers land on this table too: its deck and Stephen's board prompts.
+  ['talk-deck.json', 'board-prompts.json'].forEach(function (file) {
+    fetch('https://guide.btownbrief.com/data/' + file)
+      .then(function (r) { return r.json(); })
+      .then(function (doc) {
+        (doc.cards || doc.prompts || doc).forEach(function (q) { if (!questions[q.id]) questions[q.id] = q.q; });
+        if (rows.length) render();
+      })
+      .catch(function () {});
+  });
 
   if (pass) {
     unlock(pass).catch(function () { lock(); });
